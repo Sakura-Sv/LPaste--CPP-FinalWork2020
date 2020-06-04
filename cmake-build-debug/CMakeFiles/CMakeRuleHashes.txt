@@ -1,0 +1,3 @@
+# Hashes of file build rules.
+2c8eef36c8ccf73592c8deb9aa61242d CMakeFiles/C__FinalWork_autogen
+d5632c810578a98d296a65875c55c1a9 C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp

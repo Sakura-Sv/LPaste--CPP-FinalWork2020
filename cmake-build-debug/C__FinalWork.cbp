@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="C__FinalWork"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\Qt\;CMake Files\..\..\Qt\5.12.8\;CMake Files\..\..\Qt\5.12.8\mingw73_32\;CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\;CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\;CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5\;CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Widgets\;CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\;CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Core\;CMake Files\resources\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/projects/C++FinalWork/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/projects/C++FinalWork/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="C__FinalWork">
+				<Option output="D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/projects/C++FinalWork/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="D:/projects/C++FinalWork/cmake-build-debug"/>
+					<Add directory="D:/projects/C++FinalWork"/>
+					<Add directory="D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/include"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtWidgets"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtGui"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtANGLE"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtCore"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/./mkspecs/win32-g++"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/../../../../i686-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 C__FinalWork"/>
+					<CompileFile command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="C__FinalWork/fast">
+				<Option output="D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/projects/C++FinalWork/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="D:/projects/C++FinalWork/cmake-build-debug"/>
+					<Add directory="D:/projects/C++FinalWork"/>
+					<Add directory="D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/include"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtWidgets"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtGui"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtANGLE"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/include/QtCore"/>
+					<Add directory="D:/Qt/5.12.8/mingw73_32/./mkspecs/win32-g++"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="D:/Qt/Tools/mingw730_32/bin/../lib/gcc/i686-w64-mingw32/7.3.0/../../../../i686-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 C__FinalWork/fast"/>
+					<CompileFile command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/projects/C++FinalWork/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="C__FinalWork_autogen">
+				<Option working_dir="D:/projects/C++FinalWork/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 C__FinalWork_autogen"/>
+					<CompileFile command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Qt/Tools/mingw730_32/bin/mingw32-make.exe -f &quot;D:/projects/C++FinalWork/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.rule">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/mocs_compilation.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/lowLevelKeyBoardHook/LowLevelKeyBoardHook.h">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/main.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/resources/systemTray.qrc">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/screen/screen.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/screen/screen.h">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/systemTray/SystemTray.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/systemTray/SystemTray.h">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/widget/widget.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/widget/widget.h">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/widget/widget.ui">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5/Qt5Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Widgets/Qt5Widgets_QWindowsVistaStylePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QWebGLIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QWindowsDirect2DIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QWindowsIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/../../Qt/5.12.8/mingw73_32/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.12.8\mingw73_32\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/resources/systemTray.qrc">
+			<Option virtualFolder="CMake Files\resources\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
