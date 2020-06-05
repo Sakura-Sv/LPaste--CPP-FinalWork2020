@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
@@ -22,30 +23,30 @@ public:
     QPushButton *btnFullScreen;
     QPushButton *btnRectScreen;
     QPushButton *btnClose;
-    QPushButton *btnMin;
+    QLabel *label;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(271, 73);
+        Widget->resize(100, 141);
         btnFullScreen = new QPushButton(Widget);
         btnFullScreen->setObjectName(QString::fromUtf8("btnFullScreen"));
-        btnFullScreen->setGeometry(QRect(0, 0, 81, 81));
+        btnFullScreen->setGeometry(QRect(0, 70, 101, 71));
         btnRectScreen = new QPushButton(Widget);
         btnRectScreen->setObjectName(QString::fromUtf8("btnRectScreen"));
-        btnRectScreen->setGeometry(QRect(80, 0, 91, 81));
+        btnRectScreen->setGeometry(QRect(0, 20, 51, 51));
         btnClose = new QPushButton(Widget);
         btnClose->setObjectName(QString::fromUtf8("btnClose"));
-        btnClose->setGeometry(QRect(220, 0, 51, 31));
-        btnMin = new QPushButton(Widget);
-        btnMin->setObjectName(QString::fromUtf8("btnMin"));
-        btnMin->setGeometry(QRect(170, 0, 51, 31));
+        btnClose->setGeometry(QRect(50, 20, 51, 51));
+        label = new QLabel(Widget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(0, 0, 101, 16));
+        label->setAlignment(Qt::AlignCenter);
 
         retranslateUi(Widget);
         QObject::connect(btnFullScreen, SIGNAL(clicked()), Widget, SLOT(onBtnFullScreenClicked()));
         QObject::connect(btnRectScreen, SIGNAL(clicked()), Widget, SLOT(onBtnRectScreenClicked()));
-        QObject::connect(btnMin, SIGNAL(clicked()), Widget, SLOT(onBtnMinClicked()));
         QObject::connect(btnClose, SIGNAL(clicked()), Widget, SLOT(onBtnHideClicked()));
 
         QMetaObject::connectSlotsByName(Widget);
@@ -72,10 +73,7 @@ public:
         btnClose->setToolTip(QApplication::translate("Widget", "\346\234\200\345\260\217\345\214\226\345\210\260\346\211\230\347\233\230", nullptr));
 #endif // QT_NO_TOOLTIP
         btnClose->setText(QApplication::translate("Widget", "x", nullptr));
-#ifndef QT_NO_TOOLTIP
-        btnMin->setToolTip(QApplication::translate("Widget", "\346\234\200\345\260\217\345\214\226", nullptr));
-#endif // QT_NO_TOOLTIP
-        btnMin->setText(QApplication::translate("Widget", "-", nullptr));
+        label->setText(QApplication::translate("Widget", "My Snipaste", nullptr));
     } // retranslateUi
 
 };

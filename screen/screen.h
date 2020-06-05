@@ -18,17 +18,18 @@
 #include <QKeyEvent>
 #include <QRect>
 #include <QFile>
+#include <widget/Widget.h>
 
 
 class Screen : public QWidget {
 Q_OBJECT
 public:
-    explicit Screen(QWidget *parent = 0);
+    explicit Screen(QWidget *parent=0);
 
 signals:
-
-public slots:
-
+    void grabSuccess();
+private slots:
+    void saveScreen();
     void saveScreenOther();//截图另存为
     void grabFullScreen();//全屏截图
     void copyScreen(); //右键复制到粘贴板
@@ -40,13 +41,13 @@ protected:
     void paintEvent(QPaintEvent *);          //--画图事件
     void showEvent(QShowEvent *);           //--窗体show事件
     void keyPressEvent(QKeyEvent *e);      //--按键事件
-
 private:
     QPoint beginPos;//记录鼠标的起始位置
     QPoint endPos;//记录鼠标的结束位置
     QMenu *menu; //右键菜单对象
     bool leftPres;//记录鼠标左键是否按下，按下为true
     QRect *rect; //矩形截图区域
+private:
 public:
     QPixmap fullScreen;//全屏截图
 

@@ -1,0 +1,102 @@
+{
+	"BUILD_DIR" : "D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen",
+	"CMAKE_BINARY_DIR" : "D:/projects/C++FinalWork/cmake-build-debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/projects/C++FinalWork/cmake-build-debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/projects/C++FinalWork",
+	"CMAKE_EXECUTABLE" : "D:/JetBrains/ToolBox/apps/CLion/ch-0/201.7223.86/bin/cmake/win/bin/cmake.exe",
+	"CMAKE_SOURCE_DIR" : "D:/projects/C++FinalWork",
+	"HEADERS" : 
+	[
+		[
+			"D:/projects/C++FinalWork/lowLevelKeyBoardHook/LowLevelKeyBoardHook.h",
+			"MU",
+			"GTRYAENDS7/moc_LowLevelKeyBoardHook.cpp"
+		],
+		[
+			"D:/projects/C++FinalWork/pasteLabel/PasteLabel.h",
+			"MU",
+			"WGVJOAC6WL/moc_PasteLabel.cpp"
+		],
+		[
+			"D:/projects/C++FinalWork/screen/Screen.h",
+			"MU",
+			"JGIV4DAHX4/moc_Screen.cpp"
+		],
+		[
+			"D:/projects/C++FinalWork/systemTray/SystemTray.h",
+			"MU",
+			"ZXWNZGV4VX/moc_SystemTray.cpp"
+		],
+		[
+			"D:/projects/C++FinalWork/widget/Widget.h",
+			"MU",
+			"UZBZ344ZLF/moc_Widget.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/include",
+	"MOC_COMPILATION_FILE" : "D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_WIDGETS_LIB" ],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"D:/projects/C++FinalWork/cmake-build-debug",
+		"D:/projects/C++FinalWork",
+		"D:/Qt/5.12.8/mingw73_32/include",
+		"D:/Qt/5.12.8/mingw73_32/include/QtWidgets",
+		"D:/Qt/5.12.8/mingw73_32/include/QtGui",
+		"D:/Qt/5.12.8/mingw73_32/include/QtANGLE",
+		"D:/Qt/5.12.8/mingw73_32/include/QtCore",
+		"D:/Qt/5.12.8/mingw73_32/mkspecs/win32-g++",
+		"D:/Qt/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++",
+		"D:/Qt/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32",
+		"D:/Qt/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward",
+		"D:/Qt/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include",
+		"D:/Qt/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed",
+		"D:/Qt/Tools/mingw730_32/i686-w64-mingw32/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"D:/Qt/Tools/mingw730_32/bin/g++.exe",
+		"-dM",
+		"-E",
+		"-c",
+		"D:/JetBrains/ToolBox/apps/CLion/ch-0/201.7223.86/bin/cmake/win/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "D:/Qt/5.12.8/mingw73_32/bin/moc.exe",
+	"QT_UIC_EXECUTABLE" : "D:/Qt/5.12.8/mingw73_32/bin/uic.exe",
+	"QT_VERSION_MAJOR" : 5,
+	"SETTINGS_FILE" : "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"D:/projects/C++FinalWork/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp",
+			"MU"
+		],
+		[ "D:/projects/C++FinalWork/main.cpp", "MU" ],
+		[ "D:/projects/C++FinalWork/pasteLabel/PasteLabel.cpp", "MU" ],
+		[ "D:/projects/C++FinalWork/screen/Screen.cpp", "MU" ],
+		[ "D:/projects/C++FinalWork/systemTray/SystemTray.cpp", "MU" ],
+		[ "D:/projects/C++FinalWork/widget/Widget.cpp", "MU" ]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

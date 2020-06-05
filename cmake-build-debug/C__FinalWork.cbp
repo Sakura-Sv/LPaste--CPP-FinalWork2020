@@ -132,13 +132,19 @@
 		<Unit filename="D:/projects/C++FinalWork/main.cpp">
 			<Option target="C__FinalWork"/>
 		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/pasteLabel/PasteLabel.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/pasteLabel/PasteLabel.h">
+			<Option target="C__FinalWork"/>
+		</Unit>
 		<Unit filename="D:/projects/C++FinalWork/resources/systemTray.qrc">
 			<Option target="C__FinalWork"/>
 		</Unit>
-		<Unit filename="D:/projects/C++FinalWork/screen/screen.cpp">
+		<Unit filename="D:/projects/C++FinalWork/screen/Screen.cpp">
 			<Option target="C__FinalWork"/>
 		</Unit>
-		<Unit filename="D:/projects/C++FinalWork/screen/screen.h">
+		<Unit filename="D:/projects/C++FinalWork/screen/Screen.h">
 			<Option target="C__FinalWork"/>
 		</Unit>
 		<Unit filename="D:/projects/C++FinalWork/systemTray/SystemTray.cpp">
@@ -147,13 +153,13 @@
 		<Unit filename="D:/projects/C++FinalWork/systemTray/SystemTray.h">
 			<Option target="C__FinalWork"/>
 		</Unit>
-		<Unit filename="D:/projects/C++FinalWork/widget/widget.cpp">
+		<Unit filename="D:/projects/C++FinalWork/widget/Widget.cpp">
 			<Option target="C__FinalWork"/>
 		</Unit>
-		<Unit filename="D:/projects/C++FinalWork/widget/widget.h">
+		<Unit filename="D:/projects/C++FinalWork/widget/Widget.h">
 			<Option target="C__FinalWork"/>
 		</Unit>
-		<Unit filename="D:/projects/C++FinalWork/widget/widget.ui">
+		<Unit filename="D:/projects/C++FinalWork/widget/Widget.ui">
 			<Option target="C__FinalWork"/>
 		</Unit>
 		<Unit filename="D:/projects/C++FinalWork/CMakeLists.txt">

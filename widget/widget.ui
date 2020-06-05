@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>271</width>
-    <height>73</height>
+    <width>100</width>
+    <height>141</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
-     <width>81</width>
-     <height>81</height>
+     <y>70</y>
+     <width>101</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -35,10 +35,10 @@
   <widget class="QPushButton" name="btnRectScreen">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>0</y>
-     <width>91</width>
-     <height>81</height>
+     <x>0</x>
+     <y>20</y>
+     <width>51</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -54,10 +54,10 @@
   <widget class="QPushButton" name="btnClose">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>0</y>
+     <x>50</x>
+     <y>20</y>
      <width>51</width>
-     <height>31</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -67,20 +67,20 @@
     <string>x</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnMin">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>0</x>
      <y>0</y>
-     <width>51</width>
-     <height>31</height>
+     <width>101</width>
+     <height>16</height>
     </rect>
    </property>
-   <property name="toolTip">
-    <string>最小化</string>
-   </property>
    <property name="text">
-    <string>-</string>
+    <string>My Snipaste</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
@@ -116,22 +116,6 @@
     <hint type="destinationlabel">
      <x>152</x>
      <y>257</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnMin</sender>
-   <signal>clicked()</signal>
-   <receiver>Widget</receiver>
-   <slot>onBtnMinClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>204</x>
-     <y>8</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>214</y>
     </hint>
    </hints>
   </connection>

@@ -13,7 +13,11 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5 COMPONENTS Core REQUIRED)
 
-add_executable(C__FinalWork main.cpp resources/systemTray.qrc screen/screen.cpp screen/screen.h systemTray/SystemTray.h
-        systemTray/SystemTray.cpp widget/widget.cpp widget/widget.h widget/widget.ui lowLevelKeyBoardHook/LowLevelKeyBoardHook.h lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp)
+add_executable(C__FinalWork main.cpp resources/systemTray.qrc
+        screen/Screen.cpp screen/Screen.h
+        systemTray/SystemTray.h systemTray/SystemTray.cpp
+        widget/Widget.cpp widget/Widget.h widget/Widget.ui
+        lowLevelKeyBoardHook/LowLevelKeyBoardHook.h lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp
+        pasteLabel/PasteLabel.cpp pasteLabel/PasteLabel.h)
 
 target_link_libraries(C__FinalWork Qt5::Widgets)

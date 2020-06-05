@@ -1,7 +1,10 @@
-#include "screen.h"
+#include "Screen.h"
+#include <QDir>
+#include <QDateTime>
+#include <iostream>
 
 Screen::Screen(QWidget *parent) :
-        QWidget(parent) {
+        QWidget(0) {
     beginPos = QPoint(-1, -1);
     endPos = beginPos;
     leftPres = false;
@@ -9,10 +12,12 @@ Screen::Screen(QWidget *parent) :
     setMouseTracking(true);//开启鼠标实时追踪，实时的显示鼠标的位置
     rect = new QRect(0, 0, QApplication::desktop()->width(), QApplication::desktop()->height());
     menu = new QMenu(this);//创建右键菜单
-    menu->addAction("复制(CTRL+T)", this, SLOT(copyScreen()), Qt::ControlModifier + Qt::Key_T);
+    menu->addAction("复制(CTRL+C)", this, SLOT(copyScreen()));
     menu->addAction("截图另存为(ALT+C)", this, SLOT(saveScreenOther()));
     menu->addAction("全屏截图(ALT+A)", this, SLOT(grabFullScreen()));
     menu->addAction("退出截图(ESC)", this, SLOT(hide()));
+    connect(this, SIGNAL(grabSuccess()), parent, SLOT(initFileList()));
+    this->setWindowFlags(Qt::Tool);
 }
 
 void Screen::copyScreen() //将截图复制到粘贴板
@@ -67,28 +72,23 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
     }
 }
 
-QPoint Screen::getBeginPos()
-{
+QPoint Screen::getBeginPos() {
     return beginPos;
 }
 
-QPoint Screen::getEndPos()
-{
+QPoint Screen::getEndPos() {
     return endPos;
 }
 
-void Screen::setBeginPos(QPoint p)
-{
+void Screen::setBeginPos(QPoint p) {
     this->beginPos = p;
 }
 
-void Screen::setEndPos(QPoint p)
-{
+void Screen::setEndPos(QPoint p) {
     this->endPos = p;
 }
 
-void Screen::paintEvent(QPaintEvent *)
-{
+void Screen::paintEvent(QPaintEvent *) {
 
     QPainter painter(this); //将当前窗体对象设置为画布
     QPen pen;
@@ -134,6 +134,18 @@ void Screen::showEvent(QShowEvent *) //--窗体show事件
 
 }
 
+void Screen::saveScreen() {
+    QString fileName = QDir::currentPath() + "/screenCache/" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".bmp";
+//    QFile file(QDir::currentPath() + QString("/screenCache/") + QDateTime::currentMSecsSinceEpoch() + QString(".bmp"));
+//    file.open(QIODevice::WriteOnly);
+//    QDataStream out(&file);
+//    out << fullScreen.copy(*rect);
+//    QString fileName = QFileDialog::getSaveFileName(this, "截图另存为", "test.bmp", "Image (*.jpg *.png *.bmp)");
+    fullScreen.copy(*rect).save(fileName, "bmp");
+    this->close();
+    emit grabSuccess();
+}
+
 void Screen::saveScreenOther()//截图另存为
 {
     QString fileName = QFileDialog::getSaveFileName(this, "截图另存为", "test.bmp", "Image (*.jpg *.png *.bmp)");
@@ -156,20 +168,17 @@ void Screen::grabFullScreen()//全屏截图
     this->hide();
 }
 
-void Screen::keyPressEvent(QKeyEvent *e)
-{
+void Screen::keyPressEvent(QKeyEvent *e) {
     if (e->key() == Qt::Key_Escape) {
         hide();
-    }
-    else if (e->key() == Qt::Key_C && e->modifiers() == Qt::ControlModifier) {
+    } else if (e->key() == Qt::Key_C && e->modifiers() == Qt::ControlModifier) {
         QGuiApplication::clipboard()->setPixmap(fullScreen.copy(*rect));
-
-    }
-    else if (e->key() == Qt::Key_C && e->modifiers() == Qt::AltModifier) {
+    } else if (e->key() == Qt::Key_C && e->modifiers() == Qt::AltModifier) {
         saveScreenOther();
-    }
-    else if (e->key() == Qt::Key_A && e->modifiers() == Qt::AltModifier) {
+    } else if (e->key() == Qt::Key_A && e->modifiers() == Qt::AltModifier) {
         grabFullScreen();
+    } else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
+        saveScreen();
     } else {
         e->ignore();
     }

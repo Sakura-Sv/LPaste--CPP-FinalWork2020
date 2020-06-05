@@ -5,6 +5,9 @@
 #ifndef C__FINALWORK_SYSTEMTRAY_H
 #define C__FINALWORK_SYSTEMTRAY_H
 
-void systemTrayInit(QWidget* mainWindow) ;
+namespace mySystemTray {
+    void systemTrayInit(QWidget *mainWindow);
+    void mySystemTrayInitFinished(QSystemTrayIcon *);
+}
 
 #endif //C__FINALWORK_SYSTEMTRAY_H
