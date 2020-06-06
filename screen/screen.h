@@ -19,12 +19,25 @@
 #include <QRect>
 #include <QFile>
 #include <widget/Widget.h>
+#include <painterTool/PainterTool.h>
 
+enum ResizeType
+{
+    None,
+    Left,
+    Right,
+    Top,
+    Bottom,
+    LeftTop,
+    RightTop,
+    LeftBottom,
+    RightBottom
+};
 
-class Screen : public QWidget {
+class Screen : public QDialog {
 Q_OBJECT
 public:
-    explicit Screen(QWidget *parent=0);
+    explicit Screen(QWidget *parent=0, bool isExternalScreen = false);
 
 signals:
     void grabSuccess();
@@ -41,12 +54,21 @@ protected:
     void paintEvent(QPaintEvent *);          //--画图事件
     void showEvent(QShowEvent *);           //--窗体show事件
     void keyPressEvent(QKeyEvent *e);      //--按键事件
+    void initParams(bool);
+    void drawResizeMark(QPainter &);
 private:
     QPoint beginPos;//记录鼠标的起始位置
     QPoint endPos;//记录鼠标的结束位置
     QMenu *menu; //右键菜单对象
     bool leftPres;//记录鼠标左键是否按下，按下为true
-    QRect *rect; //矩形截图区域
+    bool resize_ = false;
+    bool move_;
+    QRect *rect_; //矩形截图区域
+    PainterTool * painterTool = nullptr;
+    int markWide_;
+    int markLength_;
+    int markMarginBoard_;
+    QColor markColor_;
 private:
 public:
     QPixmap fullScreen;//全屏截图
@@ -56,7 +78,6 @@ public:
     QPoint getEndPos();//获取鼠标的结束位置
     void setBeginPos(QPoint p);//设置鼠标的起始位置
     void setEndPos(QPoint p);//设置鼠标的结束位置
-
 };
 
 #endif // SCREEN_H

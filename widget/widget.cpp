@@ -4,13 +4,7 @@
 #include "systemTray/systemTray.h"
 #include "lowLevelKeyBoardHook/LowLevelKeyBoardHook.h"
 #include "pasteLabel/PasteLabel.h"
-#include <QMessageBox>
-#include <QFileDialog>
-#include <QScreen>
-#include <QTime>
-#include <QtWidgets/QSystemTrayIcon>
 #include <functional>
-#include <iostream>
 #include <algorithm>
 
 
@@ -25,6 +19,7 @@ Widget::Widget(QWidget *parent) :
                          Qt::WindowSystemMenuHint |
                          Qt::WindowMinMaxButtonsHint |
                          Qt::WindowStaysOnTopHint);
+    this->desktopWidget = QApplication::desktop();
     LowLevelKeyboardHook *globalKBHook = new LowLevelKeyboardHook();
     globalKBHook->setKeyboardCall(std::bind(&Widget::switchSlots, this, std::placeholders::_1));
     mySystemTray::systemTrayInit(this);
@@ -47,7 +42,7 @@ void Widget::mousePressEvent(QMouseEvent *e)
 void Widget::mouseMoveEvent(QMouseEvent *e)
 {
     if (leftPress) {//当前鼠标相对窗体的位置-刚按下左键时的相对位置=鼠标移动的大小
-        move(e->pos() - beginPos + this->pos());
+        this->move(e->pos() - beginPos + this->pos());
         //           鼠标移动的大小+窗体原来的位置=窗体移动后的位置
     }
 }
@@ -85,7 +80,7 @@ void Widget::onBtnHideClicked() {
 void Widget::onBtnFullScreenClicked()
 {
     //获取全屏截图
-    QPixmap qPixmap = QApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId());
+    QPixmap qPixmap = QApplication::primaryScreen()->grabWindow(this->desktopWidget->winId());
     QString fileName = QFileDialog::getSaveFileName(this, "文件另存为", "", tr("Config Files (*.bmp)"));
     if (fileName.length() > 0 && qPixmap.save(fileName, "bmp")) {
         QMessageBox::information(this, "提示", "保存成功!", QMessageBox::Ok);
@@ -101,8 +96,11 @@ void Widget::onBtnRectScreenClicked()
     while (QTime::currentTime() < _Timer) {
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     }
+    if(desktopWidget->screenCount() != 1){
+        adjustCurrentScreen();
+    }
     Screen *m = new Screen(this);
-    m->fullScreen = QApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId());
+    m->fullScreen = QApplication::screens()[(int) this->isExternScreen]->grabWindow(0);
     m->showFullScreen();
 }
 
@@ -158,17 +156,15 @@ void Widget::initFileList(bool isInit){
     this->pasteCacheList = tempList;
     this->pasteCacheListSize = tempList.size();
     this->offset = tempList.size() - 1;
-    std::cout<<std::endl<<this->pasteCacheListSize<<std::endl<<this->offset;
 }
 
 void Widget::rollbackOffset(){
     ++this->offset;
-    std::cout<<this->offset;
 }
 
 void Widget::cleanInvalidFiles(QList<QFileInfo> & tempList){
-    if(tempList.size()>40){
-        tempList.erase(tempList.begin()+40, tempList.end());
+    if(tempList.size()>20){
+        tempList.erase(tempList.begin()+20, tempList.end());
     }
     qint64 cacheTime = QDateTime::currentDateTime().addDays(-2).toMSecsSinceEpoch();
     QString cacheTimeFileName = QString::number(cacheTime) + ".bmp";
@@ -178,4 +174,17 @@ void Widget::cleanInvalidFiles(QList<QFileInfo> & tempList){
             tempList.removeOne(file);
         }
     }
+}
+
+void Widget::adjustCurrentScreen() {
+    POINT mousePos;
+    GetCursorPos(&mousePos);
+    int width = GetSystemMetrics(SM_CXSCREEN);
+    int height = GetSystemMetrics(SM_CYSCREEN);
+    if(mousePos.x > width || mousePos.x < 0 || mousePos.y > height || mousePos.y < 0 )
+    {
+//        this->desktopWidget->setGeometry()
+        this->isExternScreen = true;
+    }
+    this->isExternScreen = false;
 }

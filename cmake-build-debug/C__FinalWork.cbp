@@ -132,6 +132,15 @@
 		<Unit filename="D:/projects/C++FinalWork/main.cpp">
 			<Option target="C__FinalWork"/>
 		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/painterTool/PainterTool.cpp">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/painterTool/PainterTool.h">
+			<Option target="C__FinalWork"/>
+		</Unit>
+		<Unit filename="D:/projects/C++FinalWork/painterTool/PainterTool.ui">
+			<Option target="C__FinalWork"/>
+		</Unit>
 		<Unit filename="D:/projects/C++FinalWork/pasteLabel/PasteLabel.cpp">
 			<Option target="C__FinalWork"/>
 		</Unit>

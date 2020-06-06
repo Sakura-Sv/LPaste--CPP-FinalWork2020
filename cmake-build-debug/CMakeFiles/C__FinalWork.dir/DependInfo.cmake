@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/projects/C++FinalWork/cmake-build-debug/C__FinalWork_autogen/mocs_compilation.cpp" "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir/C__FinalWork_autogen/mocs_compilation.cpp.obj"
   "D:/projects/C++FinalWork/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp" "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.obj"
   "D:/projects/C++FinalWork/main.cpp" "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir/main.cpp.obj"
+  "D:/projects/C++FinalWork/painterTool/PainterTool.cpp" "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir/painterTool/PainterTool.cpp.obj"
   "D:/projects/C++FinalWork/pasteLabel/PasteLabel.cpp" "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir/pasteLabel/PasteLabel.cpp.obj"
   "D:/projects/C++FinalWork/screen/Screen.cpp" "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir/screen/Screen.cpp.obj"
   "D:/projects/C++FinalWork/systemTray/SystemTray.cpp" "D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir/systemTray/SystemTray.cpp.obj"

@@ -2,15 +2,11 @@
 #include <QDir>
 #include <QDateTime>
 #include <iostream>
+#include <painterTool/PainterTool.h>
 
-Screen::Screen(QWidget *parent) :
-        QWidget(0) {
-    beginPos = QPoint(-1, -1);
-    endPos = beginPos;
-    leftPres = false;
-    setCursor(Qt::CrossCursor);
-    setMouseTracking(true);//开启鼠标实时追踪，实时的显示鼠标的位置
-    rect = new QRect(0, 0, QApplication::desktop()->width(), QApplication::desktop()->height());
+Screen::Screen(QWidget *parent, bool isExternalScreen) :
+        QDialog(0) {
+    initParams(isExternalScreen);
     menu = new QMenu(this);//创建右键菜单
     menu->addAction("复制(CTRL+C)", this, SLOT(copyScreen()));
     menu->addAction("截图另存为(ALT+C)", this, SLOT(saveScreenOther()));
@@ -20,9 +16,20 @@ Screen::Screen(QWidget *parent) :
     this->setWindowFlags(Qt::Tool);
 }
 
+void Screen::initParams(bool isExternalScreen){
+    beginPos = QPoint(-1, -1);
+    endPos = beginPos;
+    leftPres = false;
+    resize_ = false;
+    move_ = false;
+    rect_ = new QRect(0, 0, QApplication::screens()[(int)isExternalScreen]->size().width(), QApplication::screens()[(int)isExternalScreen]->size().height());
+    setCursor(Qt::CrossCursor);
+    setMouseTracking(true);//开启鼠标实时追踪，实时的显示鼠标的位置
+}
+
 void Screen::copyScreen() //将截图复制到粘贴板
 {
-    QGuiApplication::clipboard()->setPixmap(fullScreen.copy(*rect));
+    QGuiApplication::clipboard()->setPixmap(fullScreen.copy(*rect_));
 }
 
 void Screen::contextMenuEvent(QContextMenuEvent *)  //右键菜单事件
@@ -52,6 +59,9 @@ void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
 
 void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事件
 {
+    if(resize_ && this->painterTool != nullptr){
+        return;
+    }
     if (e->button() == Qt::LeftButton)//鼠标左键释放
     {
         leftPres = false;
@@ -68,8 +78,13 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
             endPos.setY(beginPos.y() - endPos.y());
             beginPos.setY(beginPos.y() - endPos.y());
         }
-        rect->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
+        rect_->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
     }
+    this->painterTool = new PainterTool(this);
+    this->painterTool->move(endPos.x() - this->painterTool->width(), endPos.y());
+    this->painterTool->show();
+    if(!resize_)
+        resize_ = true;
 }
 
 QPoint Screen::getBeginPos() {
@@ -102,21 +117,21 @@ void Screen::paintEvent(QPaintEvent *) {
     int h = beginPos.y() < endPos.y() ? endPos.y() - beginPos.y() : beginPos.y() - endPos.y();//矩形截图区域高度
 
     QRect rect = QRect(lx, ly, w, h);//矩形截图区域
-    if (lx != -1 && w > 0 && h > 0)//防止第一次就重绘 并且宽高大于0时才进行截图操作
+    if (!resize_ && lx != -1 && w > 0 && h > 0)//防止第一次就重绘 并且宽高大于0时才进行截图操作
     {
-
         painter.drawPixmap(rect, fullScreen, rect);//重绘截图矩形部分，即恢复原图，达到去除幕布效果
         painter.drawRect(lx, ly, w, h);//画截图矩形
+        this->drawResizeMark(painter);
         //截图区域大小位置提示
         if (ly > 10)//避免看不到提示,在截图矩形上边不接近屏幕上边时，提示在截图矩形的上边的上面
         {
             painter.drawText(lx + 2, ly - 8,
-                             tr("截图范围(%1,%2) - (%3,%4)  截图大小：(%5 x %6)").arg(lx).arg(ly).arg(lx + w).arg(ly + h).arg(
+                             tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)").arg(lx).arg(ly).arg(lx + w).arg(ly + h).arg(
                                      w).arg(h));
         } else//在截图矩形上边接近屏幕上边时，提示在截图矩形的上边的下面
         {
             painter.drawText(lx + 2, ly + 12,
-                             tr("截图范围(%1,%2) - (%3,%4)  截图大小：(%5 x %6)").arg(lx).arg(ly).arg(lx + w).arg(ly + h).arg(
+                             tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)").arg(lx).arg(ly).arg(lx + w).arg(ly + h).arg(
                                      w).arg(h));
         }
     }
@@ -124,7 +139,6 @@ void Screen::paintEvent(QPaintEvent *) {
     //实时显示鼠标的位置
     painter.drawText(cursor().pos().x(), cursor().pos().y(),
                      tr("(%1,%2)").arg(cursor().pos().x()).arg(cursor().pos().y()));
-
 }
 
 void Screen::showEvent(QShowEvent *) //--窗体show事件
@@ -136,12 +150,7 @@ void Screen::showEvent(QShowEvent *) //--窗体show事件
 
 void Screen::saveScreen() {
     QString fileName = QDir::currentPath() + "/screenCache/" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".bmp";
-//    QFile file(QDir::currentPath() + QString("/screenCache/") + QDateTime::currentMSecsSinceEpoch() + QString(".bmp"));
-//    file.open(QIODevice::WriteOnly);
-//    QDataStream out(&file);
-//    out << fullScreen.copy(*rect);
-//    QString fileName = QFileDialog::getSaveFileName(this, "截图另存为", "test.bmp", "Image (*.jpg *.png *.bmp)");
-    fullScreen.copy(*rect).save(fileName, "bmp");
+    fullScreen.copy(*rect_).save(fileName, "bmp");
     this->close();
     emit grabSuccess();
 }
@@ -151,7 +160,7 @@ void Screen::saveScreenOther()//截图另存为
     QString fileName = QFileDialog::getSaveFileName(this, "截图另存为", "test.bmp", "Image (*.jpg *.png *.bmp)");
 
     if (fileName.length() > 0) {
-        fullScreen.copy(*rect).save(fileName, "bmp");
+        fullScreen.copy(*rect_).save(fileName, "bmp");
         this->close();
     }
 }
@@ -172,7 +181,7 @@ void Screen::keyPressEvent(QKeyEvent *e) {
     if (e->key() == Qt::Key_Escape) {
         hide();
     } else if (e->key() == Qt::Key_C && e->modifiers() == Qt::ControlModifier) {
-        QGuiApplication::clipboard()->setPixmap(fullScreen.copy(*rect));
+        QGuiApplication::clipboard()->setPixmap(fullScreen.copy(*rect_));
     } else if (e->key() == Qt::Key_C && e->modifiers() == Qt::AltModifier) {
         saveScreenOther();
     } else if (e->key() == Qt::Key_A && e->modifiers() == Qt::AltModifier) {
@@ -184,3 +193,95 @@ void Screen::keyPressEvent(QKeyEvent *e) {
     }
 }
 
+void Screen::drawResizeMark(QPainter &painter)
+{
+    int centerX = (endPos.x() - beginPos.x())/2;
+    int centerY = (endPos.y() - beginPos.y())/2;
+//    switch (resize_type_) {
+//        case Right:{
+//            QRect mark = QRect( f_width - mark_wide_,
+//                                f_half_height - mark_length_,
+//                                mark_wide_,
+//                                mark_length_ + mark_length_);
+//            painter.fillRect(mark, mark_color_);
+//            break;
+//        }
+//        case Left:{
+//            QRect mark = QRect( f_x,
+//                                f_half_height - mark_length_,
+//                                mark_wide_,
+//                                mark_length_ + mark_length_);
+//            painter.fillRect(mark, mark_color_);
+//            break;
+//        }
+//        case Bottom:{
+//            QRect mark = QRect( f_half_width - mark_length_,
+//                                f_height - mark_wide_,
+//                                mark_length_ + mark_length_,
+//                                mark_wide_);
+//            painter.fillRect(mark, mark_color_);
+//            break;
+//        }
+//        case Top:{
+//            QRect mark = QRect( f_half_width - mark_length_,
+//                                f_y,
+//                                mark_length_ + mark_length_,
+//                                mark_wide_);
+//            painter.fillRect(mark, mark_color_);
+//            break;
+//        }
+//        case RightBottom:{
+//            QRect mark1 = QRect( f_width - mark_wide_,
+//                                 f_height - mark_length_,
+//                                 mark_wide_,
+//                                 mark_length_);
+//            QRect mark2 = QRect( f_width - mark_length_,
+//                                 f_height - mark_wide_,
+//                                 mark_length_,
+//                                 mark_wide_);
+//            painter.fillRect(mark1, mark_color_);
+//            painter.fillRect(mark2, mark_color_);
+//            break;
+//        }
+//        case RightTop:{
+//            QRect mark1 = QRect( f_width - mark_length_,
+//                                 f_y,
+//                                 mark_length_,
+//                                 mark_wide_);
+//            QRect mark2 = QRect( f_width - mark_wide_,
+//                                 f_y,
+//                                 mark_wide_,
+//                                 mark_length_);
+//            painter.fillRect(mark1, mark_color_);
+//            painter.fillRect(mark2, mark_color_);
+//            break;
+//        }
+//        case LeftTop:{
+//            QRect mark1 = QRect(f_x,
+//                                f_y,
+//                                mark_length_,
+//                                mark_wide_);
+//            QRect mark2 = QRect(f_x,
+//                                f_y,
+//                                mark_wide_,
+//                                mark_length_);
+//            painter.fillRect(mark1, mark_color_);
+//            painter.fillRect(mark2, mark_color_);
+//            break;
+//        }
+//        case LeftBottom:{
+//            QRect mark1 = QRect(f_x,
+//                                f_height - mark_length_,
+//                                mark_wide_,
+//                                mark_length_);
+//            QRect mark2 = QRect(f_x,
+//                                f_height - mark_wide_,
+//                                mark_length_,
+//                                mark_wide_);
+//            painter.fillRect(mark1, mark_color_);
+//            painter.fillRect(mark2, mark_color_);
+//            break;
+//        }
+//        default:{ break; }
+//    }
+}

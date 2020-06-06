@@ -48,14 +48,17 @@ protected:
     void mouseReleaseEvent(QMouseEvent *e);   //--鼠标释放（松开）事件
     void cleanInvalidFiles(QList<QFileInfo> &);
     void systemTrayInitFinished();
+    void adjustCurrentScreen();
 private:
     Ui::Widget *ui;
 private:
     bool leftPress;
     QPoint beginPos;
     QList<QFileInfo> pasteCacheList;
+    QDesktopWidget * desktopWidget;
     int pasteCacheListSize;
     int offset;
+    bool isExternScreen = false;
 };
 
 #endif // WIDGET_H

@@ -13,6 +13,11 @@
 			"GTRYAENDS7/moc_LowLevelKeyBoardHook.cpp"
 		],
 		[
+			"D:/projects/C++FinalWork/painterTool/PainterTool.h",
+			"MU",
+			"4GEYFSLTE2/moc_PainterTool.cpp"
+		],
+		[
 			"D:/projects/C++FinalWork/pasteLabel/PasteLabel.h",
 			"MU",
 			"WGVJOAC6WL/moc_PasteLabel.cpp"
@@ -89,6 +94,7 @@
 			"MU"
 		],
 		[ "D:/projects/C++FinalWork/main.cpp", "MU" ],
+		[ "D:/projects/C++FinalWork/painterTool/PainterTool.cpp", "MU" ],
 		[ "D:/projects/C++FinalWork/pasteLabel/PasteLabel.cpp", "MU" ],
 		[ "D:/projects/C++FinalWork/screen/Screen.cpp", "MU" ],
 		[ "D:/projects/C++FinalWork/systemTray/SystemTray.cpp", "MU" ],
