@@ -1,4 +1,4 @@
-D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork.dir
-D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/projects/C++FinalWork/cmake-build-debug/CMakeFiles/C__FinalWork_autogen.dir
+D:/projects/C++Final2020/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/projects/C++Final2020/cmake-build-debug/CMakeFiles/C__Final2020.dir
+D:/projects/C++Final2020/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/projects/C++Final2020/cmake-build-debug/CMakeFiles/C__Final2020_autogen.dir

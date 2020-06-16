@@ -43,22 +43,22 @@ RM = "D:\CLion 2019.3.2\bin\cmake\win\bin\cmake.exe" -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\projects\C++FinalWork
+CMAKE_SOURCE_DIR = D:\projects\C++Final2020
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\projects\C++FinalWork\cmake-build-debug
+CMAKE_BINARY_DIR = D:\projects\C++Final2020\cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/C__FinalWork.dir/all
+all: CMakeFiles/C__Final2020.dir/all
 
 .PHONY : all
 
 # The main recursive "clean" target.
-clean: CMakeFiles/C__FinalWork.dir/clean
-clean: CMakeFiles/C__FinalWork_autogen.dir/clean
+clean: CMakeFiles/C__Final2020.dir/clean
+clean: CMakeFiles/C__Final2020_autogen.dir/clean
 
 .PHONY : clean
 
@@ -68,58 +68,58 @@ preinstall:
 .PHONY : preinstall
 
 #=============================================================================
-# Target rules for target CMakeFiles/C__FinalWork.dir
+# Target rules for target CMakeFiles/C__Final2020.dir
 
 # All Build rule for target.
-CMakeFiles/C__FinalWork.dir/all: CMakeFiles/C__FinalWork_autogen.dir/all
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/depend
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target C__FinalWork"
-.PHONY : CMakeFiles/C__FinalWork.dir/all
+CMakeFiles/C__Final2020.dir/all: CMakeFiles/C__Final2020_autogen.dir/all
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/depend
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\projects\C++Final2020\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target C__Final2020"
+.PHONY : CMakeFiles/C__Final2020.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/C__FinalWork.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles 12
-	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/C__FinalWork.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles 0
-.PHONY : CMakeFiles/C__FinalWork.dir/rule
+CMakeFiles/C__Final2020.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++Final2020\cmake-build-debug\CMakeFiles 12
+	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/C__Final2020.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++Final2020\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/C__Final2020.dir/rule
 
 # Convenience name for target.
-C__FinalWork: CMakeFiles/C__FinalWork.dir/rule
+C__Final2020: CMakeFiles/C__Final2020.dir/rule
 
-.PHONY : C__FinalWork
+.PHONY : C__Final2020
 
 # clean rule for target.
-CMakeFiles/C__FinalWork.dir/clean:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/clean
-.PHONY : CMakeFiles/C__FinalWork.dir/clean
+CMakeFiles/C__Final2020.dir/clean:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/clean
+.PHONY : CMakeFiles/C__Final2020.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/C__FinalWork_autogen.dir
+# Target rules for target CMakeFiles/C__Final2020_autogen.dir
 
 # All Build rule for target.
-CMakeFiles/C__FinalWork_autogen.dir/all:
-	$(MAKE) -f CMakeFiles\C__FinalWork_autogen.dir\build.make CMakeFiles/C__FinalWork_autogen.dir/depend
-	$(MAKE) -f CMakeFiles\C__FinalWork_autogen.dir\build.make CMakeFiles/C__FinalWork_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles --progress-num=12 "Built target C__FinalWork_autogen"
-.PHONY : CMakeFiles/C__FinalWork_autogen.dir/all
+CMakeFiles/C__Final2020_autogen.dir/all:
+	$(MAKE) -f CMakeFiles\C__Final2020_autogen.dir\build.make CMakeFiles/C__Final2020_autogen.dir/depend
+	$(MAKE) -f CMakeFiles\C__Final2020_autogen.dir\build.make CMakeFiles/C__Final2020_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\projects\C++Final2020\cmake-build-debug\CMakeFiles --progress-num=12 "Built target C__Final2020_autogen"
+.PHONY : CMakeFiles/C__Final2020_autogen.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/C__FinalWork_autogen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles 1
-	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/C__FinalWork_autogen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles 0
-.PHONY : CMakeFiles/C__FinalWork_autogen.dir/rule
+CMakeFiles/C__Final2020_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++Final2020\cmake-build-debug\CMakeFiles 1
+	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/C__Final2020_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++Final2020\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/C__Final2020_autogen.dir/rule
 
 # Convenience name for target.
-C__FinalWork_autogen: CMakeFiles/C__FinalWork_autogen.dir/rule
+C__Final2020_autogen: CMakeFiles/C__Final2020_autogen.dir/rule
 
-.PHONY : C__FinalWork_autogen
+.PHONY : C__Final2020_autogen
 
 # clean rule for target.
-CMakeFiles/C__FinalWork_autogen.dir/clean:
-	$(MAKE) -f CMakeFiles\C__FinalWork_autogen.dir\build.make CMakeFiles/C__FinalWork_autogen.dir/clean
-.PHONY : CMakeFiles/C__FinalWork_autogen.dir/clean
+CMakeFiles/C__Final2020_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles\C__Final2020_autogen.dir\build.make CMakeFiles/C__Final2020_autogen.dir/clean
+.PHONY : CMakeFiles/C__Final2020_autogen.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

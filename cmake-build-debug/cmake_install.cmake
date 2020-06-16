@@ -1,8 +1,8 @@
-# Install script for directory: D:/projects/C++FinalWork
+# Install script for directory: D:/projects/C++Final2020
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/C__FinalWork")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/C__Final2020")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/projects/C++FinalWork/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/projects/C++Final2020/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

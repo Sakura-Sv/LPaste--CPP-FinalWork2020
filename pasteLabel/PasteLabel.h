@@ -12,7 +12,6 @@ class PasteLabel : public QLabel{
 public:
     explicit PasteLabel(QWidget * parent, QString path);
     ~PasteLabel();
-    PasteLabel(const PasteLabel&);
 
 signals:
     void pasteHide();
@@ -26,6 +25,8 @@ private slots:
     void onZoomInImage();
     void onZoomOutImage();
 private:
+    Q_DISABLE_COPY(PasteLabel);
+
     QPoint mousePoint;
     bool mouse_press;
     int pixmapWidth;

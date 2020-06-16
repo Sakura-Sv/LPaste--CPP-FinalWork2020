@@ -47,24 +47,13 @@ RM = "D:\CLion 2019.3.2\bin\cmake\win\bin\cmake.exe" -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\projects\C++FinalWork
+CMAKE_SOURCE_DIR = D:\projects\C++Final2020
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\projects\C++FinalWork\cmake-build-debug
+CMAKE_BINARY_DIR = D:\projects\C++Final2020\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"D:\CLion 2019.3.2\bin\cmake\win\bin\cmake.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -77,11 +66,22 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	"D:\CLion 2019.3.2\bin\cmake\win\bin\cmake.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++Final2020\cmake-build-debug\CMakeFiles D:\projects\C++Final2020\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++FinalWork\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\projects\C++Final2020\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -110,84 +110,84 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named C__FinalWork
+# Target rules for targets named C__Final2020
 
 # Build rule for target.
-C__FinalWork: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 C__FinalWork
-.PHONY : C__FinalWork
+C__Final2020: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 C__Final2020
+.PHONY : C__Final2020
 
 # fast build rule for target.
-C__FinalWork/fast:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/build
-.PHONY : C__FinalWork/fast
+C__Final2020/fast:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/build
+.PHONY : C__Final2020/fast
 
 #=============================================================================
-# Target rules for targets named C__FinalWork_autogen
+# Target rules for targets named C__Final2020_autogen
 
 # Build rule for target.
-C__FinalWork_autogen: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 C__FinalWork_autogen
-.PHONY : C__FinalWork_autogen
+C__Final2020_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 C__Final2020_autogen
+.PHONY : C__Final2020_autogen
 
 # fast build rule for target.
-C__FinalWork_autogen/fast:
-	$(MAKE) -f CMakeFiles\C__FinalWork_autogen.dir\build.make CMakeFiles/C__FinalWork_autogen.dir/build
-.PHONY : C__FinalWork_autogen/fast
+C__Final2020_autogen/fast:
+	$(MAKE) -f CMakeFiles\C__Final2020_autogen.dir\build.make CMakeFiles/C__Final2020_autogen.dir/build
+.PHONY : C__Final2020_autogen/fast
 
-C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.obj: C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj
+C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.obj: C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj
 
-.PHONY : C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.obj
-
-# target to build an object file
-C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj
-.PHONY : C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj
-
-C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.i: C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i
-
-.PHONY : C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.i
-
-# target to preprocess a source file
-C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i
-.PHONY : C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i
-
-C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.s: C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s
-
-.PHONY : C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.s
-
-# target to generate assembly for a file
-C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s
-.PHONY : C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s
-
-C__FinalWork_autogen/mocs_compilation.obj: C__FinalWork_autogen/mocs_compilation.cpp.obj
-
-.PHONY : C__FinalWork_autogen/mocs_compilation.obj
+.PHONY : C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.obj
 
 # target to build an object file
-C__FinalWork_autogen/mocs_compilation.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/C__FinalWork_autogen/mocs_compilation.cpp.obj
-.PHONY : C__FinalWork_autogen/mocs_compilation.cpp.obj
+C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj
+.PHONY : C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.obj
 
-C__FinalWork_autogen/mocs_compilation.i: C__FinalWork_autogen/mocs_compilation.cpp.i
+C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.i: C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i
 
-.PHONY : C__FinalWork_autogen/mocs_compilation.i
+.PHONY : C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.i
 
 # target to preprocess a source file
-C__FinalWork_autogen/mocs_compilation.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/C__FinalWork_autogen/mocs_compilation.cpp.i
-.PHONY : C__FinalWork_autogen/mocs_compilation.cpp.i
+C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i
+.PHONY : C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.i
 
-C__FinalWork_autogen/mocs_compilation.s: C__FinalWork_autogen/mocs_compilation.cpp.s
+C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.s: C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s
 
-.PHONY : C__FinalWork_autogen/mocs_compilation.s
+.PHONY : C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.s
 
 # target to generate assembly for a file
-C__FinalWork_autogen/mocs_compilation.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/C__FinalWork_autogen/mocs_compilation.cpp.s
-.PHONY : C__FinalWork_autogen/mocs_compilation.cpp.s
+C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s
+.PHONY : C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp.s
+
+C__Final2020_autogen/mocs_compilation.obj: C__Final2020_autogen/mocs_compilation.cpp.obj
+
+.PHONY : C__Final2020_autogen/mocs_compilation.obj
+
+# target to build an object file
+C__Final2020_autogen/mocs_compilation.cpp.obj:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/C__Final2020_autogen/mocs_compilation.cpp.obj
+.PHONY : C__Final2020_autogen/mocs_compilation.cpp.obj
+
+C__Final2020_autogen/mocs_compilation.i: C__Final2020_autogen/mocs_compilation.cpp.i
+
+.PHONY : C__Final2020_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+C__Final2020_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/C__Final2020_autogen/mocs_compilation.cpp.i
+.PHONY : C__Final2020_autogen/mocs_compilation.cpp.i
+
+C__Final2020_autogen/mocs_compilation.s: C__Final2020_autogen/mocs_compilation.cpp.s
+
+.PHONY : C__Final2020_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+C__Final2020_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/C__Final2020_autogen/mocs_compilation.cpp.s
+.PHONY : C__Final2020_autogen/mocs_compilation.cpp.s
 
 lowLevelKeyBoardHook/LowLevelKeyBoardHook.obj: lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.obj
 
@@ -195,7 +195,7 @@ lowLevelKeyBoardHook/LowLevelKeyBoardHook.obj: lowLevelKeyBoardHook/LowLevelKeyB
 
 # target to build an object file
 lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.obj
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.obj
 .PHONY : lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.obj
 
 lowLevelKeyBoardHook/LowLevelKeyBoardHook.i: lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.i
@@ -204,7 +204,7 @@ lowLevelKeyBoardHook/LowLevelKeyBoardHook.i: lowLevelKeyBoardHook/LowLevelKeyBoa
 
 # target to preprocess a source file
 lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.i
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.i
 .PHONY : lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.i
 
 lowLevelKeyBoardHook/LowLevelKeyBoardHook.s: lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.s
@@ -213,7 +213,7 @@ lowLevelKeyBoardHook/LowLevelKeyBoardHook.s: lowLevelKeyBoardHook/LowLevelKeyBoa
 
 # target to generate assembly for a file
 lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.s
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.s
 .PHONY : lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp.s
 
 main.obj: main.cpp.obj
@@ -222,7 +222,7 @@ main.obj: main.cpp.obj
 
 # target to build an object file
 main.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/main.cpp.obj
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/main.cpp.obj
 .PHONY : main.cpp.obj
 
 main.i: main.cpp.i
@@ -231,7 +231,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -240,7 +240,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 painterTool/PainterTool.obj: painterTool/PainterTool.cpp.obj
@@ -249,7 +249,7 @@ painterTool/PainterTool.obj: painterTool/PainterTool.cpp.obj
 
 # target to build an object file
 painterTool/PainterTool.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/painterTool/PainterTool.cpp.obj
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/painterTool/PainterTool.cpp.obj
 .PHONY : painterTool/PainterTool.cpp.obj
 
 painterTool/PainterTool.i: painterTool/PainterTool.cpp.i
@@ -258,7 +258,7 @@ painterTool/PainterTool.i: painterTool/PainterTool.cpp.i
 
 # target to preprocess a source file
 painterTool/PainterTool.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/painterTool/PainterTool.cpp.i
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/painterTool/PainterTool.cpp.i
 .PHONY : painterTool/PainterTool.cpp.i
 
 painterTool/PainterTool.s: painterTool/PainterTool.cpp.s
@@ -267,7 +267,7 @@ painterTool/PainterTool.s: painterTool/PainterTool.cpp.s
 
 # target to generate assembly for a file
 painterTool/PainterTool.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/painterTool/PainterTool.cpp.s
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/painterTool/PainterTool.cpp.s
 .PHONY : painterTool/PainterTool.cpp.s
 
 pasteLabel/PasteLabel.obj: pasteLabel/PasteLabel.cpp.obj
@@ -276,7 +276,7 @@ pasteLabel/PasteLabel.obj: pasteLabel/PasteLabel.cpp.obj
 
 # target to build an object file
 pasteLabel/PasteLabel.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/pasteLabel/PasteLabel.cpp.obj
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/pasteLabel/PasteLabel.cpp.obj
 .PHONY : pasteLabel/PasteLabel.cpp.obj
 
 pasteLabel/PasteLabel.i: pasteLabel/PasteLabel.cpp.i
@@ -285,7 +285,7 @@ pasteLabel/PasteLabel.i: pasteLabel/PasteLabel.cpp.i
 
 # target to preprocess a source file
 pasteLabel/PasteLabel.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/pasteLabel/PasteLabel.cpp.i
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/pasteLabel/PasteLabel.cpp.i
 .PHONY : pasteLabel/PasteLabel.cpp.i
 
 pasteLabel/PasteLabel.s: pasteLabel/PasteLabel.cpp.s
@@ -294,7 +294,7 @@ pasteLabel/PasteLabel.s: pasteLabel/PasteLabel.cpp.s
 
 # target to generate assembly for a file
 pasteLabel/PasteLabel.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/pasteLabel/PasteLabel.cpp.s
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/pasteLabel/PasteLabel.cpp.s
 .PHONY : pasteLabel/PasteLabel.cpp.s
 
 screen/Screen.obj: screen/Screen.cpp.obj
@@ -303,7 +303,7 @@ screen/Screen.obj: screen/Screen.cpp.obj
 
 # target to build an object file
 screen/Screen.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/screen/Screen.cpp.obj
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj
 .PHONY : screen/Screen.cpp.obj
 
 screen/Screen.i: screen/Screen.cpp.i
@@ -312,7 +312,7 @@ screen/Screen.i: screen/Screen.cpp.i
 
 # target to preprocess a source file
 screen/Screen.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/screen/Screen.cpp.i
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/screen/Screen.cpp.i
 .PHONY : screen/Screen.cpp.i
 
 screen/Screen.s: screen/Screen.cpp.s
@@ -321,7 +321,7 @@ screen/Screen.s: screen/Screen.cpp.s
 
 # target to generate assembly for a file
 screen/Screen.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/screen/Screen.cpp.s
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/screen/Screen.cpp.s
 .PHONY : screen/Screen.cpp.s
 
 systemTray/SystemTray.obj: systemTray/SystemTray.cpp.obj
@@ -330,7 +330,7 @@ systemTray/SystemTray.obj: systemTray/SystemTray.cpp.obj
 
 # target to build an object file
 systemTray/SystemTray.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/systemTray/SystemTray.cpp.obj
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/systemTray/SystemTray.cpp.obj
 .PHONY : systemTray/SystemTray.cpp.obj
 
 systemTray/SystemTray.i: systemTray/SystemTray.cpp.i
@@ -339,7 +339,7 @@ systemTray/SystemTray.i: systemTray/SystemTray.cpp.i
 
 # target to preprocess a source file
 systemTray/SystemTray.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/systemTray/SystemTray.cpp.i
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/systemTray/SystemTray.cpp.i
 .PHONY : systemTray/SystemTray.cpp.i
 
 systemTray/SystemTray.s: systemTray/SystemTray.cpp.s
@@ -348,7 +348,7 @@ systemTray/SystemTray.s: systemTray/SystemTray.cpp.s
 
 # target to generate assembly for a file
 systemTray/SystemTray.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/systemTray/SystemTray.cpp.s
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/systemTray/SystemTray.cpp.s
 .PHONY : systemTray/SystemTray.cpp.s
 
 widget/Widget.obj: widget/Widget.cpp.obj
@@ -357,7 +357,7 @@ widget/Widget.obj: widget/Widget.cpp.obj
 
 # target to build an object file
 widget/Widget.cpp.obj:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/widget/Widget.cpp.obj
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/widget/Widget.cpp.obj
 .PHONY : widget/Widget.cpp.obj
 
 widget/Widget.i: widget/Widget.cpp.i
@@ -366,7 +366,7 @@ widget/Widget.i: widget/Widget.cpp.i
 
 # target to preprocess a source file
 widget/Widget.cpp.i:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/widget/Widget.cpp.i
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/widget/Widget.cpp.i
 .PHONY : widget/Widget.cpp.i
 
 widget/Widget.s: widget/Widget.cpp.s
@@ -375,7 +375,7 @@ widget/Widget.s: widget/Widget.cpp.s
 
 # target to generate assembly for a file
 widget/Widget.cpp.s:
-	$(MAKE) -f CMakeFiles\C__FinalWork.dir\build.make CMakeFiles/C__FinalWork.dir/widget/Widget.cpp.s
+	$(MAKE) -f CMakeFiles\C__Final2020.dir\build.make CMakeFiles/C__Final2020.dir/widget/Widget.cpp.s
 .PHONY : widget/Widget.cpp.s
 
 # Help Target
@@ -384,16 +384,16 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... rebuild_cache
-	@echo ... C__FinalWork
 	@echo ... edit_cache
-	@echo ... C__FinalWork_autogen
-	@echo ... C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.obj
-	@echo ... C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.i
-	@echo ... C__FinalWork_autogen/3YJK5W5UP7/qrc_systemTray.s
-	@echo ... C__FinalWork_autogen/mocs_compilation.obj
-	@echo ... C__FinalWork_autogen/mocs_compilation.i
-	@echo ... C__FinalWork_autogen/mocs_compilation.s
+	@echo ... C__Final2020
+	@echo ... rebuild_cache
+	@echo ... C__Final2020_autogen
+	@echo ... C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.obj
+	@echo ... C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.i
+	@echo ... C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.s
+	@echo ... C__Final2020_autogen/mocs_compilation.obj
+	@echo ... C__Final2020_autogen/mocs_compilation.i
+	@echo ... C__Final2020_autogen/mocs_compilation.s
 	@echo ... lowLevelKeyBoardHook/LowLevelKeyBoardHook.obj
 	@echo ... lowLevelKeyBoardHook/LowLevelKeyBoardHook.i
 	@echo ... lowLevelKeyBoardHook/LowLevelKeyBoardHook.s

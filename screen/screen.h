@@ -56,9 +56,12 @@ protected:
     void keyPressEvent(QKeyEvent *e);      //--按键事件
     void initParams(bool);
     void drawResizeMark(QPainter &);
+    void updateMouseLoc(QPainter &);
 private:
     QPoint beginPos;//记录鼠标的起始位置
     QPoint endPos;//记录鼠标的结束位置
+    QPoint moveBeginPos;
+    QPoint moveEndPos;
     QMenu *menu; //右键菜单对象
     bool leftPres;//记录鼠标左键是否按下，按下为true
     bool resize_ = false;
@@ -69,15 +72,22 @@ private:
     int markLength_;
     int markMarginBoard_;
     QColor markColor_;
-private:
+    int rx;
+    int ry;
+    int rw;
+    int rh;
 public:
     QPixmap fullScreen;//全屏截图
 
 public:
     QPoint getBeginPos();//获取鼠标的起始位置
     QPoint getEndPos();//获取鼠标的结束位置
+    QPoint getMoveBeginPos();//获取鼠标的起始位置
+    QPoint getMoveEndPos();//获取鼠标的结束位置
     void setBeginPos(QPoint p);//设置鼠标的起始位置
     void setEndPos(QPoint p);//设置鼠标的结束位置
+    void setMoveBeginPos(QPoint p);//设置鼠标的起始位置
+    void setMoveEndPos(QPoint p);//设置鼠标的结束位置
 };
 
 #endif // SCREEN_H

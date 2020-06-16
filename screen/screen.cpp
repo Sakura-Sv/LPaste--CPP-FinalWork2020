@@ -41,28 +41,48 @@ void Screen::contextMenuEvent(QContextMenuEvent *)  //右键菜单事件
 void Screen::mousePressEvent(QMouseEvent *e)       //--鼠标按下事件
 {
     //添加menu->isActiveWindow()条件是为了在右键菜单时不进行截图区域调整
-    if (e->button() == Qt::LeftButton && !menu->isActiveWindow())//鼠标左键按下
+    if (!resize_ && e->button() == Qt::LeftButton && !menu->isActiveWindow())//鼠标左键按下
     {
         leftPres = true;
         setBeginPos(e->pos());//鼠标相对窗体的位置，记录截图的开始位置
+    }
+    if(resize_ && e->button() == Qt::LeftButton && !menu->isActiveWindow()){
+        leftPres = true;
+        setMoveBeginPos(e->pos());
+        painterTool->hide();
     }
 }
 
 void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
 {
-    if (leftPres) {
+    if (!resize_ && leftPres) {
         setEndPos(e->pos());//不断的更新截图的结束位置
         update();//重绘、触发画图事件
     }
-
+    if(resize_ && leftPres) {
+        setMoveEndPos(e->pos());
+        QPoint removePath = moveEndPos - moveBeginPos;
+        beginPos.setX(beginPos.x()+removePath.x());
+        beginPos.setY(beginPos.y() + removePath.y());
+        endPos.setX(endPos.x()+removePath.x());
+        endPos.setY(endPos.y() + removePath.y());
+        rect_->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
+        update();
+        setMoveBeginPos(e->pos());
+    }
 }
 
 void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事件
 {
     if(resize_ && this->painterTool != nullptr){
+        leftPres = false;
+
+        this->painterTool->move(rect_->x() + rect_->width() - this->painterTool->width(),
+                rect_->y() + rect_->height());
+        this->painterTool->show();
         return;
     }
-    if (e->button() == Qt::LeftButton)//鼠标左键释放
+    if (!resize_ && e->button() == Qt::LeftButton)//鼠标左键释放
     {
         leftPres = false;
         setEndPos(e->pos());//记录截图的结束位置
@@ -79,10 +99,11 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
             beginPos.setY(beginPos.y() - endPos.y());
         }
         rect_->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
+
+        this->painterTool = new PainterTool(this);
+        this->painterTool->move(endPos.x() - this->painterTool->width(), endPos.y());
+        this->painterTool->show();
     }
-    this->painterTool = new PainterTool(this);
-    this->painterTool->move(endPos.x() - this->painterTool->width(), endPos.y());
-    this->painterTool->show();
     if(!resize_)
         resize_ = true;
 }
@@ -95,12 +116,28 @@ QPoint Screen::getEndPos() {
     return endPos;
 }
 
+QPoint Screen::getMoveBeginPos() {
+    return moveBeginPos;
+}
+
+QPoint Screen::getMoveEndPos() {
+    return moveEndPos;
+}
+
 void Screen::setBeginPos(QPoint p) {
     this->beginPos = p;
 }
 
 void Screen::setEndPos(QPoint p) {
     this->endPos = p;
+}
+
+void Screen::setMoveBeginPos(QPoint p) {
+    this->moveBeginPos = p;
+}
+
+void Screen::setMoveEndPos(QPoint p) {
+    this->moveEndPos = p;
 }
 
 void Screen::paintEvent(QPaintEvent *) {
@@ -111,32 +148,39 @@ void Screen::paintEvent(QPaintEvent *) {
     pen.setWidth(1);     //画笔线条宽度
     painter.setPen(pen);//设置画笔
 
-    int lx = beginPos.x() < endPos.x() ? beginPos.x() : endPos.x();//矩形截图区域左上角x坐标
-    int ly = beginPos.y() < endPos.y() ? beginPos.y() : endPos.y();//矩形截图区域右上角x坐标
-    int w = beginPos.x() < endPos.x() ? endPos.x() - beginPos.x() : beginPos.x() - endPos.x();//矩形截图区域宽度
-    int h = beginPos.y() < endPos.y() ? endPos.y() - beginPos.y() : beginPos.y() - endPos.y();//矩形截图区域高度
+//    if(!resize_) {
+        this->rx = beginPos.x() < endPos.x() ? beginPos.x() : endPos.x();//矩形截图区域左上角x坐标
+        this->ry = beginPos.y() < endPos.y() ? beginPos.y() : endPos.y();//矩形截图区域右上角x坐标
+        this->rw = beginPos.x() < endPos.x() ? endPos.x() - beginPos.x() : beginPos.x() - endPos.x();//矩形截图区域宽度
+        this->rh = beginPos.y() < endPos.y() ? endPos.y() - beginPos.y() : beginPos.y() - endPos.y();//矩形截图区域高度
+//    }
 
-    QRect rect = QRect(lx, ly, w, h);//矩形截图区域
-    if (!resize_ && lx != -1 && w > 0 && h > 0)//防止第一次就重绘 并且宽高大于0时才进行截图操作
+    QRect rect = QRect(rx, ry, rw, rh);//矩形截图区域
+    if (rx != -1 && rw > 0 && rh > 0)//防止第一次就重绘 并且宽高大于0时才进行截图操作
     {
         painter.drawPixmap(rect, fullScreen, rect);//重绘截图矩形部分，即恢复原图，达到去除幕布效果
-        painter.drawRect(lx, ly, w, h);//画截图矩形
+        painter.drawRect(rx, ry, rw, rh);//画截图矩形
         this->drawResizeMark(painter);
         //截图区域大小位置提示
-        if (ly > 10)//避免看不到提示,在截图矩形上边不接近屏幕上边时，提示在截图矩形的上边的上面
+        if (ry > 10)//避免看不到提示,在截图矩形上边不接近屏幕上边时，提示在截图矩形的上边的上面
         {
-            painter.drawText(lx + 2, ly - 8,
-                             tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)").arg(lx).arg(ly).arg(lx + w).arg(ly + h).arg(
-                                     w).arg(h));
+            painter.drawText(rx + 2, ry - 8,
+                             tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)")
+                             .arg(rx).arg(ry).arg(rx + rw)
+                             .arg(ry + rh).arg(rw).arg(rh));
         } else//在截图矩形上边接近屏幕上边时，提示在截图矩形的上边的下面
         {
-            painter.drawText(lx + 2, ly + 12,
-                             tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)").arg(lx).arg(ly).arg(lx + w).arg(ly + h).arg(
-                                     w).arg(h));
+            painter.drawText(rx + 2, ry + 12,
+                             tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)")
+                             .arg(rx).arg(ry).arg(rx + rw)
+                             .arg(ry + rh).arg(rw).arg(rh));
         }
     }
-
+    updateMouseLoc(painter);
     //实时显示鼠标的位置
+}
+
+void Screen::updateMouseLoc(QPainter &painter){
     painter.drawText(cursor().pos().x(), cursor().pos().y(),
                      tr("(%1,%2)").arg(cursor().pos().x()).arg(cursor().pos().y()));
 }
@@ -145,7 +189,6 @@ void Screen::showEvent(QShowEvent *) //--窗体show事件
 {
     //设置透明度实现模糊背景
     setWindowOpacity(0.7);
-
 }
 
 void Screen::saveScreen() {
