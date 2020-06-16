@@ -16,13 +16,17 @@ Screen::Screen(QWidget *parent, bool isExternalScreen) :
     this->setWindowFlags(Qt::Tool);
 }
 
-void Screen::initParams(bool isExternalScreen){
+void Screen::initParams(bool isExternalScreen) {
     beginPos = QPoint(-1, -1);
     endPos = beginPos;
     leftPres = false;
     resize_ = false;
     move_ = false;
-    rect_ = new QRect(0, 0, QApplication::screens()[(int)isExternalScreen]->size().width(), QApplication::screens()[(int)isExternalScreen]->size().height());
+    rect_ = new QRect(0, 0, QApplication::screens()[(int) isExternalScreen]->size().width(),
+                      QApplication::screens()[(int) isExternalScreen]->size().height());
+    mark_length_ = 50;
+    mark_width_ = 15;
+    mark_color_ = QColor(0,47,167);
     setCursor(Qt::CrossCursor);
     setMouseTracking(true);//开启鼠标实时追踪，实时的显示鼠标的位置
 }
@@ -46,7 +50,7 @@ void Screen::mousePressEvent(QMouseEvent *e)       //--鼠标按下事件
         leftPres = true;
         setBeginPos(e->pos());//鼠标相对窗体的位置，记录截图的开始位置
     }
-    if(resize_ && e->button() == Qt::LeftButton && !menu->isActiveWindow()){
+    if (resize_ && e->button() == Qt::LeftButton && !menu->isActiveWindow()) {
         leftPres = true;
         setMoveBeginPos(e->pos());
         painterTool->hide();
@@ -55,16 +59,19 @@ void Screen::mousePressEvent(QMouseEvent *e)       //--鼠标按下事件
 
 void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
 {
+    if(!leftPres){
+
+    }
     if (!resize_ && leftPres) {
         setEndPos(e->pos());//不断的更新截图的结束位置
         update();//重绘、触发画图事件
     }
-    if(resize_ && leftPres) {
+    if (resize_ && leftPres) {
         setMoveEndPos(e->pos());
         QPoint removePath = moveEndPos - moveBeginPos;
-        beginPos.setX(beginPos.x()+removePath.x());
+        beginPos.setX(beginPos.x() + removePath.x());
         beginPos.setY(beginPos.y() + removePath.y());
-        endPos.setX(endPos.x()+removePath.x());
+        endPos.setX(endPos.x() + removePath.x());
         endPos.setY(endPos.y() + removePath.y());
         rect_->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
         update();
@@ -74,11 +81,11 @@ void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
 
 void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事件
 {
-    if(resize_ && this->painterTool != nullptr){
+    if (resize_ && this->painterTool != nullptr) {
         leftPres = false;
 
         this->painterTool->move(rect_->x() + rect_->width() - this->painterTool->width(),
-                rect_->y() + rect_->height());
+                                rect_->y() + rect_->height());
         this->painterTool->show();
         return;
     }
@@ -104,7 +111,7 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
         this->painterTool->move(endPos.x() - this->painterTool->width(), endPos.y());
         this->painterTool->show();
     }
-    if(!resize_)
+    if (!resize_)
         resize_ = true;
 }
 
@@ -144,15 +151,15 @@ void Screen::paintEvent(QPaintEvent *) {
 
     QPainter painter(this); //将当前窗体对象设置为画布
     QPen pen;
-    pen.setColor(Qt::red);//设置笔色
+    pen.setColor(Qt::blue);//设置笔色
     pen.setWidth(1);     //画笔线条宽度
     painter.setPen(pen);//设置画笔
 
 //    if(!resize_) {
-        this->rx = beginPos.x() < endPos.x() ? beginPos.x() : endPos.x();//矩形截图区域左上角x坐标
-        this->ry = beginPos.y() < endPos.y() ? beginPos.y() : endPos.y();//矩形截图区域右上角x坐标
-        this->rw = beginPos.x() < endPos.x() ? endPos.x() - beginPos.x() : beginPos.x() - endPos.x();//矩形截图区域宽度
-        this->rh = beginPos.y() < endPos.y() ? endPos.y() - beginPos.y() : beginPos.y() - endPos.y();//矩形截图区域高度
+    this->rx = beginPos.x() < endPos.x() ? beginPos.x() : endPos.x();//矩形截图区域左上角x坐标
+    this->ry = beginPos.y() < endPos.y() ? beginPos.y() : endPos.y();//矩形截图区域右上角x坐标
+    this->rw = beginPos.x() < endPos.x() ? endPos.x() - beginPos.x() : beginPos.x() - endPos.x();//矩形截图区域宽度
+    this->rh = beginPos.y() < endPos.y() ? endPos.y() - beginPos.y() : beginPos.y() - endPos.y();//矩形截图区域高度
 //    }
 
     QRect rect = QRect(rx, ry, rw, rh);//矩形截图区域
@@ -166,23 +173,29 @@ void Screen::paintEvent(QPaintEvent *) {
         {
             painter.drawText(rx + 2, ry - 8,
                              tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)")
-                             .arg(rx).arg(ry).arg(rx + rw)
-                             .arg(ry + rh).arg(rw).arg(rh));
+                                     .arg(rx).arg(ry).arg(rx + rw)
+                                     .arg(ry + rh).arg(rw).arg(rh));
         } else//在截图矩形上边接近屏幕上边时，提示在截图矩形的上边的下面
         {
             painter.drawText(rx + 2, ry + 12,
                              tr("Zoom Range:(%1,%2) - (%3,%4)  Zoom Size:(%5 x %6)")
-                             .arg(rx).arg(ry).arg(rx + rw)
-                             .arg(ry + rh).arg(rw).arg(rh));
+                                     .arg(rx).arg(ry).arg(rx + rw)
+                                     .arg(ry + rh).arg(rw).arg(rh));
         }
     }
-    updateMouseLoc(painter);
+    drawResizeMark(painter);
+
     //实时显示鼠标的位置
+    if(!resize_) {
+        painter.drawText(cursor().pos().x(), cursor().pos().y(),
+                         tr("(%1,%2)").arg(cursor().pos().x()).arg(cursor().pos().y()));
+    } else {
+        painter.drawText(endPos.x(), endPos.y(),
+                         tr("(%1,%2)").arg(endPos.x()).arg(endPos.y()));
+    }
 }
 
-void Screen::updateMouseLoc(QPainter &painter){
-    painter.drawText(cursor().pos().x(), cursor().pos().y(),
-                     tr("(%1,%2)").arg(cursor().pos().x()).arg(cursor().pos().y()));
+void Screen::updateMouseLoc(QPainter &painter) {
 }
 
 void Screen::showEvent(QShowEvent *) //--窗体show事件
@@ -192,7 +205,8 @@ void Screen::showEvent(QShowEvent *) //--窗体show事件
 }
 
 void Screen::saveScreen() {
-    QString fileName = QDir::currentPath() + "/screenCache/" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".bmp";
+    QString fileName =
+            QDir::currentPath() + "/screenCache/" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".bmp";
     fullScreen.copy(*rect_).save(fileName, "bmp");
     this->close();
     emit grabSuccess();
@@ -236,95 +250,94 @@ void Screen::keyPressEvent(QKeyEvent *e) {
     }
 }
 
-void Screen::drawResizeMark(QPainter &painter)
-{
-    int centerX = (endPos.x() - beginPos.x())/2;
-    int centerY = (endPos.y() - beginPos.y())/2;
-//    switch (resize_type_) {
-//        case Right:{
-//            QRect mark = QRect( f_width - mark_wide_,
-//                                f_half_height - mark_length_,
-//                                mark_wide_,
-//                                mark_length_ + mark_length_);
-//            painter.fillRect(mark, mark_color_);
-//            break;
-//        }
-//        case Left:{
-//            QRect mark = QRect( f_x,
-//                                f_half_height - mark_length_,
-//                                mark_wide_,
-//                                mark_length_ + mark_length_);
-//            painter.fillRect(mark, mark_color_);
-//            break;
-//        }
-//        case Bottom:{
-//            QRect mark = QRect( f_half_width - mark_length_,
-//                                f_height - mark_wide_,
-//                                mark_length_ + mark_length_,
-//                                mark_wide_);
-//            painter.fillRect(mark, mark_color_);
-//            break;
-//        }
-//        case Top:{
-//            QRect mark = QRect( f_half_width - mark_length_,
-//                                f_y,
-//                                mark_length_ + mark_length_,
-//                                mark_wide_);
-//            painter.fillRect(mark, mark_color_);
-//            break;
-//        }
-//        case RightBottom:{
-//            QRect mark1 = QRect( f_width - mark_wide_,
-//                                 f_height - mark_length_,
-//                                 mark_wide_,
-//                                 mark_length_);
-//            QRect mark2 = QRect( f_width - mark_length_,
-//                                 f_height - mark_wide_,
-//                                 mark_length_,
-//                                 mark_wide_);
-//            painter.fillRect(mark1, mark_color_);
-//            painter.fillRect(mark2, mark_color_);
-//            break;
-//        }
-//        case RightTop:{
-//            QRect mark1 = QRect( f_width - mark_length_,
-//                                 f_y,
-//                                 mark_length_,
-//                                 mark_wide_);
-//            QRect mark2 = QRect( f_width - mark_wide_,
-//                                 f_y,
-//                                 mark_wide_,
-//                                 mark_length_);
-//            painter.fillRect(mark1, mark_color_);
-//            painter.fillRect(mark2, mark_color_);
-//            break;
-//        }
-//        case LeftTop:{
-//            QRect mark1 = QRect(f_x,
-//                                f_y,
-//                                mark_length_,
-//                                mark_wide_);
-//            QRect mark2 = QRect(f_x,
-//                                f_y,
-//                                mark_wide_,
-//                                mark_length_);
-//            painter.fillRect(mark1, mark_color_);
-//            painter.fillRect(mark2, mark_color_);
-//            break;
-//        }
-//        case LeftBottom:{
-//            QRect mark1 = QRect(f_x,
-//                                f_height - mark_length_,
-//                                mark_wide_,
-//                                mark_length_);
-//            QRect mark2 = QRect(f_x,
-//                                f_height - mark_wide_,
-//                                mark_length_,
-//                                mark_wide_);
-//            painter.fillRect(mark1, mark_color_);
-//            painter.fillRect(mark2, mark_color_);
-//            break;
-//        }
-//        default:{ break; }
-//    }
+void Screen::drawResizeMark(QPainter &painter) {
+    int centerX = (endPos.x() + beginPos.x()) / 2;
+    int centerY = (endPos.y() + beginPos.y()) / 2;
+    switch (resize_type_) {
+        case Right:{
+            this->rightRect = QRect( endPos.x() - mark_width_/2,
+                                centerY - mark_length_/2,
+                                mark_width_,
+                                mark_length_);
+            painter.fillRect(this->rightRect, mark_color_);
+            break;
+        }
+        case Left:{
+            this->leftRect = QRect( beginPos.x()- mark_width_/2,
+                                centerY - mark_length_/2,
+                                mark_width_,
+                                mark_length_);
+            painter.fillRect(this->leftRect, mark_color_);
+            break;
+        }
+        case Bottom:{
+            this->bottomRect = QRect( centerX - mark_length_/2,
+                                endPos.y() - mark_width_/2,
+                                mark_length_,
+                                mark_width_);
+            painter.fillRect(this->bottomRect, mark_color_);
+            break;
+        }
+        case Top:{
+            this->topRect = QRect( centerX - mark_length_/2,
+                                beginPos.y() - mark_width_/2,
+                                mark_length_,
+                                mark_width_);
+            painter.fillRect(this->topRect, mark_color_);
+            break;
+        }
+        case RightBottom:{
+            this->rightBottom_l = QRect( endPos.x() - mark_width_/2,
+                                 endPos.y() - mark_length_,
+                                 mark_width_,
+                                 mark_length_);
+            this->rightBottom_w = QRect( endPos.x() - mark_length_,
+                                 endPos.y() - mark_width_/2,
+                                 mark_length_,
+                                 mark_width_);
+            painter.fillRect(rightBottom_l, mark_color_);
+            painter.fillRect(rightBottom_w, mark_color_);
+            break;
+        }
+        case RightTop:{
+            rightTop_w = QRect( endPos.x() - mark_length_,
+                                 beginPos.y() - mark_width_/2,
+                                 mark_length_,
+                                 mark_width_);
+            rightTop_l = QRect( endPos.x() - mark_width_,
+                                 beginPos.y() - mark_length_,
+                                 mark_width_,
+                                 mark_length_);
+            painter.fillRect(rightTop_w, mark_color_);
+            painter.fillRect(rightTop_l, mark_color_);
+            break;
+        }
+        case LeftTop:{
+            leftTop_w = QRect(beginPos.x() - mark_length_,
+                                beginPos.y() - mark_width_/2,
+                                mark_length_,
+                                mark_width_);
+            leftTop_l = QRect(beginPos.x() - mark_width_/2,
+                                beginPos.y() - mark_length_,
+                                mark_width_,
+                                mark_length_);
+            painter.fillRect(leftTop_w, mark_color_);
+            painter.fillRect(leftTop_l, mark_color_);
+            break;
+        }
+        case LeftBottom:{
+            leftBottom_l = QRect(beginPos.x() - mark_width_/2,
+                                endPos.y() - mark_length_,
+                                mark_width_,
+                                mark_length_);
+            leftBottom_w = QRect(beginPos.x() - mark_length_,
+                                endPos.y() - mark_width_/2,
+                                mark_length_,
+                                mark_width_);
+            painter.fillRect(leftBottom_l, mark_color_);
+            painter.fillRect(leftBottom_w, mark_color_);
+            break;
+        }
+        default:{ break; }
+    }
 }

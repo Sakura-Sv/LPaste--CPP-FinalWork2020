@@ -68,14 +68,26 @@ private:
     bool move_;
     QRect *rect_; //矩形截图区域
     PainterTool * painterTool = nullptr;
-    int markWide_;
-    int markLength_;
-    int markMarginBoard_;
-    QColor markColor_;
     int rx;
     int ry;
     int rw;
     int rh;
+    ResizeType resize_type_ = None;
+    int mark_width_;
+    int mark_length_;
+    QColor mark_color_;
+    QRect topRect;
+    QRect leftRect;
+    QRect rightRect;
+    QRect bottomRect;
+    QRect leftTop_l;
+    QRect leftTop_w;
+    QRect leftBottom_l;
+    QRect leftBottom_w;
+    QRect rightTop_l;
+    QRect rightTop_w;
+    QRect rightBottom_l;
+    QRect rightBottom_w;
 public:
     QPixmap fullScreen;//全屏截图
 

@@ -8,6 +8,7 @@
 #include "PasteLabel.h"
 
 PasteLabel::PasteLabel(QWidget *parent, QString path) : QLabel() {
+    this->mouse_press = false;
     connect(this, SIGNAL(pasteHide()), parent, SLOT(rollbackOffset()));
     this->setPixmap(*new QPixmap(path));
     this->setAlignment(Qt::AlignBottom | Qt::AlignRight);
