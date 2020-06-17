@@ -8,6 +8,8 @@ namespace Ui {
     class Widget;
 }
 
+const QString SCREEN_CACHE = QString("D:/temp/LPaste/ScreenCache/");
+
 class Widget : public QWidget {
 Q_OBJECT
 

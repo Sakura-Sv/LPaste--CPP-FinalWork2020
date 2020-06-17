@@ -145,7 +145,7 @@ void Widget::switchSlots(int vkCode) {
 }
 
 void Widget::initFileList(bool isInit){
-    QDir *pasteCacheDir = new QDir(QDir::currentPath() + "/screenCache/");
+    QDir *pasteCacheDir = new QDir(SCREEN_CACHE);
     QStringList filter;
     filter<<"*.bmp";
     pasteCacheDir->setNameFilters(filter);

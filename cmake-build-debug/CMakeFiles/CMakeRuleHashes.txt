@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-cde89ba45b03390c743de86872b5e931 CMakeFiles/C__Final2020_autogen
-30ac5729253f4fdeaf76bf295dbf46f6 C__Final2020_autogen/3YJK5W5UP7/qrc_systemTray.cpp

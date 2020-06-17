@@ -1,4 +1,0 @@
-ToolSet: w64 6.0 (local)@D:\Qt\Tools\mingw730_32
-Options: 
-
-Options:

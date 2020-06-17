@@ -218,7 +218,7 @@ void Screen::showEvent(QShowEvent *) //--窗体show事件
 
 void Screen::saveScreen() {
     QString fileName =
-            QDir::currentPath() + "/screenCache/" + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".bmp";
+            SCREEN_CACHE + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".bmp";
     fullScreen.copy(*rect_).save(fileName, "bmp");
     this->close();
     emit grabSuccess();
