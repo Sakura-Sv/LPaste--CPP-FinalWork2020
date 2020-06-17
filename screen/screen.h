@@ -83,7 +83,8 @@ private:
     ResizeType resize_type_ = None;
     ResizeType buttom_press_type = None;
     int mark_width_;
-    int mark_length_;
+    int mark_length_l; //竖直方向
+    int mark_length_w; //水平方向
     QColor mark_color_;
     QRect topRect;
     QRect leftRect;

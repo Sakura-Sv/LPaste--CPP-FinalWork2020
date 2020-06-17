@@ -22,7 +22,8 @@ void Screen::initParams(bool isExternalScreen) {
     move_ = false;
     rect_ = new QRect(0, 0, QApplication::screens()[(int) isExternalScreen]->size().width(),
                       QApplication::screens()[(int) isExternalScreen]->size().height());
-    mark_length_ = 50;
+    mark_length_l = 50;
+    mark_length_w = 50;
     mark_width_ = 15;
     mark_color_ = QColor(0, 47, 167);
     setCursor(Qt::CrossCursor);
@@ -104,6 +105,19 @@ void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
 
 void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事件
 {
+    //使得起始点在左上角，结束点在右下角
+    if (beginPos.x() > endPos.x()) {
+        beginPos.setX(beginPos.x() + endPos.x());
+        endPos.setX(beginPos.x() - endPos.x());
+        beginPos.setX(beginPos.x() - endPos.x());
+    }
+    if (beginPos.y() > endPos.y()) {
+        beginPos.setY(beginPos.y() + endPos.y());
+        endPos.setY(beginPos.y() - endPos.y());
+        beginPos.setY(beginPos.y() - endPos.y());
+    }
+    rect_->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
+
     if (resize_ && this->painterTool != nullptr) {
         leftPres = false;
         move_ = false;
@@ -117,19 +131,6 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
     {
         leftPres = false;
         setEndPos(e->pos());//记录截图的结束位置
-
-        //使得起始点在左上角，结束点在右下角
-        if (beginPos.x() > endPos.x()) {
-            beginPos.setX(beginPos.x() + endPos.x());
-            endPos.setX(beginPos.x() - endPos.x());
-            beginPos.setX(beginPos.x() - endPos.x());
-        }
-        if (beginPos.y() > endPos.y()) {
-            beginPos.setY(beginPos.y() + endPos.y());
-            endPos.setY(beginPos.y() - endPos.y());
-            beginPos.setY(beginPos.y() - endPos.y());
-        }
-        rect_->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
 
         this->painterTool = new PainterTool(this);
         this->painterTool->move(endPos.x() - this->painterTool->width(), endPos.y() + mark_width_);
@@ -311,45 +312,173 @@ void Screen::keyPressEvent(QKeyEvent *e) {
 }
 
 void Screen::drawResizeMark(QPainter &painter) {
-    switch (resize_type_) {
-        case Right: {
-            painter.fillRect(this->rightRect, mark_color_);
-            break;
+    if(beginPos.x() > endPos.x() && beginPos.y() > endPos.y()){
+        switch (resize_type_) {
+            case Right: {
+                painter.fillRect(leftRect, mark_color_);
+                break;
+            }
+            case Left: {
+                painter.fillRect(rightRect, mark_color_);
+                break;
+            }
+            case Bottom: {
+                painter.fillRect(topRect, mark_color_);
+                break;
+            }
+            case Top: {
+                painter.fillRect(bottomRect, mark_color_);
+                break;
+            }
+            case RightBottom: {
+                painter.fillRect(leftTop_l, mark_color_);
+                painter.fillRect(leftTop_w, mark_color_);
+                break;
+            }
+            case RightTop: {
+                painter.fillRect(leftBottom_l, mark_color_);
+                painter.fillRect(leftBottom_w, mark_color_);
+                break;
+            }
+            case LeftTop: {
+                painter.fillRect(rightBottom_l, mark_color_);
+                painter.fillRect(rightBottom_w, mark_color_);
+                break;
+            }
+            case LeftBottom: {
+                painter.fillRect(rightTop_l, mark_color_);
+                painter.fillRect(rightTop_w, mark_color_);
+                break;
+            }
+            default: {
+                break;
+            }
         }
-        case Left: {
-            painter.fillRect(this->leftRect, mark_color_);
-            break;
+    } else if(beginPos.x() > endPos.x()){
+        switch (resize_type_) {
+            case Right: {
+                painter.fillRect(leftRect, mark_color_);
+                break;
+            }
+            case Left: {
+                painter.fillRect(rightRect, mark_color_);
+                break;
+            }
+            case Bottom: {
+                painter.fillRect(bottomRect, mark_color_);
+                break;
+            }
+            case Top: {
+                painter.fillRect(topRect, mark_color_);
+                break;
+            }
+            case RightBottom: {
+                painter.fillRect(leftBottom_l, mark_color_);
+                painter.fillRect(leftBottom_w, mark_color_);
+                break;
+            }
+            case RightTop: {
+                painter.fillRect(leftTop_l, mark_color_);
+                painter.fillRect(leftTop_l, mark_color_);
+                break;
+            }
+            case LeftTop: {
+                painter.fillRect(rightTop_w, mark_color_);
+                painter.fillRect(rightTop_l, mark_color_);
+                break;
+            }
+            case LeftBottom: {
+                painter.fillRect(rightBottom_l, mark_color_);
+                painter.fillRect(rightBottom_w, mark_color_);
+                break;
+            }
+            default: {
+                break;
+            }
         }
-        case Bottom: {
-            painter.fillRect(this->bottomRect, mark_color_);
-            break;
+    } else if (beginPos.y() > endPos.y()){
+        switch (resize_type_) {
+            case Right: {
+                painter.fillRect(rightRect, mark_color_);
+                break;
+            }
+            case Left: {
+                painter.fillRect(leftRect, mark_color_);
+                break;
+            }
+            case Bottom: {
+                painter.fillRect(topRect, mark_color_);
+                break;
+            }
+            case Top: {
+                painter.fillRect(bottomRect, mark_color_);
+                break;
+            }
+            case RightBottom: {
+                painter.fillRect(rightTop_l, mark_color_);
+                painter.fillRect(rightTop_w, mark_color_);
+                break;
+            }
+            case RightTop: {
+                painter.fillRect(rightBottom_l, mark_color_);
+                painter.fillRect(rightBottom_w, mark_color_);
+                break;
+            }
+            case LeftTop: {
+                painter.fillRect(leftBottom_l, mark_color_);
+                painter.fillRect(leftBottom_w, mark_color_);
+                break;
+            }
+            case LeftBottom: {
+                painter.fillRect(leftTop_l, mark_color_);
+                painter.fillRect(leftTop_w, mark_color_);
+                break;
+            }
+            default: {
+                break;
+            }
         }
-        case Top: {
-            painter.fillRect(this->topRect, mark_color_);
-            break;
-        }
-        case RightBottom: {
-            painter.fillRect(rightBottom_l, mark_color_);
-            painter.fillRect(rightBottom_w, mark_color_);
-            break;
-        }
-        case RightTop: {
-            painter.fillRect(rightTop_w, mark_color_);
-            painter.fillRect(rightTop_l, mark_color_);
-            break;
-        }
-        case LeftTop: {
-            painter.fillRect(leftTop_w, mark_color_);
-            painter.fillRect(leftTop_l, mark_color_);
-            break;
-        }
-        case LeftBottom: {
-            painter.fillRect(leftBottom_l, mark_color_);
-            painter.fillRect(leftBottom_w, mark_color_);
-            break;
-        }
-        default: {
-            break;
+    }else {
+        switch (resize_type_) {
+            case Right: {
+                painter.fillRect(rightRect, mark_color_);
+                break;
+            }
+            case Left: {
+                painter.fillRect(leftRect, mark_color_);
+                break;
+            }
+            case Bottom: {
+                painter.fillRect(bottomRect, mark_color_);
+                break;
+            }
+            case Top: {
+                painter.fillRect(topRect, mark_color_);
+                break;
+            }
+            case RightBottom: {
+                painter.fillRect(rightBottom_l, mark_color_);
+                painter.fillRect(rightBottom_w, mark_color_);
+                break;
+            }
+            case RightTop: {
+                painter.fillRect(rightTop_w, mark_color_);
+                painter.fillRect(rightTop_l, mark_color_);
+                break;
+            }
+            case LeftTop: {
+                painter.fillRect(leftTop_w, mark_color_);
+                painter.fillRect(leftTop_l, mark_color_);
+                break;
+            }
+            case LeftBottom: {
+                painter.fillRect(leftBottom_l, mark_color_);
+                painter.fillRect(leftBottom_w, mark_color_);
+                break;
+            }
+            default: {
+                break;
+            }
         }
     }
 }
@@ -357,54 +486,105 @@ void Screen::drawResizeMark(QPainter &painter) {
 void Screen::initRectBottom(QPainter &painter) {
     int centerX = (endPos.x() + beginPos.x()) / 2;
     int centerY = (endPos.y() + beginPos.y()) / 2;
-    this->rightRect = QRect(endPos.x() - mark_width_ / 2,
-                            centerY - mark_length_ / 2 * 3,
+    this->mark_length_l = this->rect_->height() / 8;
+    this->mark_length_w = this->rect_->width() / 8;
+    int lessLen;
+
+    if(mark_length_l > mark_length_w){
+        lessLen = mark_length_w;
+    } else { lessLen = mark_length_l; }
+
+    this->mark_width_ = lessLen/5;
+    if(mark_width_ < 5){
+        mark_width_ = 5;
+    } else if (mark_width_ > 12){
+        mark_width_ = 12;
+    }
+
+    rightRect = QRect(endPos.x() - mark_width_ / 2,
+                            centerY - mark_length_l,
                             mark_width_,
-                            mark_length_ * 2);
-    this->leftRect = QRect(beginPos.x() - mark_width_ / 2,
-                           centerY - mark_length_ / 2 * 3,
+                            mark_length_l * 2);
+    leftRect = QRect(beginPos.x() - mark_width_ / 2,
+                           centerY - mark_length_l ,
                            mark_width_,
-                           mark_length_ * 2);
-    this->bottomRect = QRect(centerX - mark_length_ / 2 * 3,
-                             endPos.y() - mark_width_ / 2 ,
-                             mark_length_ * 2,
+                           mark_length_l * 2);
+    bottomRect = QRect(centerX - mark_length_w,
+                             endPos.y() - mark_width_ / 2,
+                             mark_length_w * 2,
                              mark_width_);
-    this->topRect = QRect(centerX - mark_length_ / 2 * 3,
+    topRect = QRect(centerX - mark_length_w,
                           beginPos.y() - mark_width_ / 2,
-                          mark_length_ * 2,
+                          mark_length_w * 2,
                           mark_width_);
-    this->rightBottom_l = QRect(endPos.x() - mark_width_ / 2,
-                                endPos.y() - mark_length_ + mark_width_ / 2,
+    rightBottom_l = QRect(endPos.x() - mark_width_ / 2,
+                                endPos.y() - lessLen + mark_width_ / 2,
                                 mark_width_,
-                                mark_length_);
-    this->rightBottom_w = QRect(endPos.x() - mark_length_,
+                                lessLen);
+    rightBottom_w = QRect(endPos.x() - lessLen + mark_width_ / 2,
                                 endPos.y() - mark_width_ / 2,
-                                mark_length_,
+                                lessLen,
                                 mark_width_);
-    rightTop_w = QRect(endPos.x() - mark_length_ + mark_width_ / 2,
+    rightTop_w = QRect(endPos.x() - lessLen + mark_width_ / 2,
                        beginPos.y() - mark_width_ / 2,
-                       mark_length_,
+                       lessLen,
                        mark_width_);
     rightTop_l = QRect(endPos.x() - mark_width_ / 2,
                        beginPos.y() - mark_width_ / 2,
                        mark_width_,
-                       mark_length_);
+                       lessLen);
     leftTop_w = QRect(beginPos.x() - mark_width_ / 2,
                       beginPos.y() - mark_width_ / 2,
-                      mark_length_,
+                      lessLen,
                       mark_width_);
     leftTop_l = QRect(beginPos.x() - mark_width_ / 2,
                       beginPos.y() - mark_width_ / 2,
                       mark_width_,
-                      mark_length_);
+                      lessLen);
     leftBottom_l = QRect(beginPos.x() - mark_width_ / 2,
-                         endPos.y() - mark_length_ + mark_width_ / 2,
+                         endPos.y() - lessLen + mark_width_ / 2,
                          mark_width_,
-                         mark_length_);
+                         lessLen);
     leftBottom_w = QRect(beginPos.x() - mark_width_ / 2,
                          endPos.y() - mark_width_ / 2,
-                         mark_length_,
+                         lessLen,
                          mark_width_);
+//    if(beginPos.x() > endPos.x()){
+//        QRect temp;
+//        temp = rightRect;
+//        rightRect = leftRect;
+//        leftRect = temp;
+//        temp = leftTop_l;
+//        leftTop_l = rightTop_l;
+//        rightTop_l = temp;
+//        temp = leftTop_w;
+//        leftTop_w = rightTop_w;
+//        rightTop_w = temp;
+//        temp = leftBottom_l;
+//        leftBottom_l = rightBottom_l;
+//        rightBottom_l = temp;
+//        temp = leftBottom_w;
+//        leftBottom_w = rightBottom_w;
+//        rightBottom_w = temp;
+//    }
+//    if(beginPos.y() > endPos.y()){
+//        QRect temp;
+//        temp = topRect;
+//        topRect = bottomRect;
+//        bottomRect = temp;
+//        temp = leftTop_l;
+//        leftTop_l = leftBottom_l;
+//        leftBottom_l = temp;
+//        temp = leftTop_w;
+//        leftTop_w = leftBottom_l;
+//        leftBottom_l = temp;
+//        temp = rightTop_l;
+//        rightTop_l = rightBottom_l;
+//        rightBottom_l = temp;
+//        temp = rightTop_w;
+//        rightTop_w = rightBottom_w;
+//        rightBottom_w = temp;
+//    }
 }
 
 void Screen::containedRectInfer(QPoint pos, bool isPress) {
