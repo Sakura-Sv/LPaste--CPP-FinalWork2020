@@ -46,17 +46,9 @@ inttypes.h
 stdint.h
 -
 
-D:/Qt/5.12.8/mingw73_32/include/QtCore/QDateTime
-qdatetime.h
-D:/Qt/5.12.8/mingw73_32/include/QtCore/qdatetime.h
-
 D:/Qt/5.12.8/mingw73_32/include/QtCore/QDebug
 qdebug.h
 D:/Qt/5.12.8/mingw73_32/include/QtCore/qdebug.h
-
-D:/Qt/5.12.8/mingw73_32/include/QtCore/QDir
-qdir.h
-D:/Qt/5.12.8/mingw73_32/include/QtCore/qdir.h
 
 D:/Qt/5.12.8/mingw73_32/include/QtCore/QEvent
 qcoreevent.h
@@ -4935,10 +4927,6 @@ QtWidgets/qdialog.h
 D:/projects/C++Final2020/screen/Screen.cpp
 Screen.h
 D:/projects/C++Final2020/screen/Screen.h
-QDir
--
-QDateTime
--
 iostream
 -
 painterTool/PainterTool.h

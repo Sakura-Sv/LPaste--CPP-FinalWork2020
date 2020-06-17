@@ -1,6 +1,4 @@
 #include "Screen.h"
-#include <QDir>
-#include <QDateTime>
 #include <iostream>
 #include <painterTool/PainterTool.h>
 
@@ -26,7 +24,7 @@ void Screen::initParams(bool isExternalScreen) {
                       QApplication::screens()[(int) isExternalScreen]->size().height());
     mark_length_ = 50;
     mark_width_ = 15;
-    mark_color_ = QColor(0,47,167);
+    mark_color_ = QColor(0, 47, 167);
     setCursor(Qt::CrossCursor);
     setMouseTracking(true);//开启鼠标实时追踪，实时的显示鼠标的位置
 }
@@ -51,6 +49,10 @@ void Screen::mousePressEvent(QMouseEvent *e)       //--鼠标按下事件
         setBeginPos(e->pos());//鼠标相对窗体的位置，记录截图的开始位置
     }
     if (resize_ && e->button() == Qt::LeftButton && !menu->isActiveWindow()) {
+        containedRectInfer(e->pos(), true);
+        if(buttom_press_type == None && this->rect_->contains(e->pos())){
+            move_ = true;
+        }
         leftPres = true;
         setMoveBeginPos(e->pos());
         painterTool->hide();
@@ -59,14 +61,15 @@ void Screen::mousePressEvent(QMouseEvent *e)       //--鼠标按下事件
 
 void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
 {
-    if(!leftPres){
-
+    if (resize_ && !leftPres) {
+        containedRectInfer(e->pos(), false);
+        update();
     }
     if (!resize_ && leftPres) {
         setEndPos(e->pos());//不断的更新截图的结束位置
         update();//重绘、触发画图事件
     }
-    if (resize_ && leftPres) {
+    if (resize_ && move_ && leftPres) {
         setMoveEndPos(e->pos());
         QPoint removePath = moveEndPos - moveBeginPos;
         beginPos.setX(beginPos.x() + removePath.x());
@@ -83,6 +86,7 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
 {
     if (resize_ && this->painterTool != nullptr) {
         leftPres = false;
+        move_ = false;
 
         this->painterTool->move(rect_->x() + rect_->width() - this->painterTool->width(),
                                 rect_->y() + rect_->height());
@@ -108,7 +112,7 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
         rect_->setRect(beginPos.x(), beginPos.y(), endPos.x() - beginPos.x(), endPos.y() - beginPos.y());
 
         this->painterTool = new PainterTool(this);
-        this->painterTool->move(endPos.x() - this->painterTool->width(), endPos.y());
+        this->painterTool->move(endPos.x() - this->painterTool->width(), endPos.y() + mark_width_);
         this->painterTool->show();
     }
     if (!resize_)
@@ -147,6 +151,18 @@ void Screen::setMoveEndPos(QPoint p) {
     this->moveEndPos = p;
 }
 
+void Screen::horizontalZoom(){
+
+}
+
+void Screen::verticalZoom(){
+
+}
+
+void Screen::diagonalZoom(){
+
+}
+
 void Screen::paintEvent(QPaintEvent *) {
 
     QPainter painter(this); //将当前窗体对象设置为画布
@@ -155,12 +171,10 @@ void Screen::paintEvent(QPaintEvent *) {
     pen.setWidth(1);     //画笔线条宽度
     painter.setPen(pen);//设置画笔
 
-//    if(!resize_) {
     this->rx = beginPos.x() < endPos.x() ? beginPos.x() : endPos.x();//矩形截图区域左上角x坐标
     this->ry = beginPos.y() < endPos.y() ? beginPos.y() : endPos.y();//矩形截图区域右上角x坐标
     this->rw = beginPos.x() < endPos.x() ? endPos.x() - beginPos.x() : beginPos.x() - endPos.x();//矩形截图区域宽度
     this->rh = beginPos.y() < endPos.y() ? endPos.y() - beginPos.y() : beginPos.y() - endPos.y();//矩形截图区域高度
-//    }
 
     QRect rect = QRect(rx, ry, rw, rh);//矩形截图区域
     if (rx != -1 && rw > 0 && rh > 0)//防止第一次就重绘 并且宽高大于0时才进行截图操作
@@ -183,19 +197,17 @@ void Screen::paintEvent(QPaintEvent *) {
                                      .arg(ry + rh).arg(rw).arg(rh));
         }
     }
+    initRectBottom(painter);
     drawResizeMark(painter);
 
     //实时显示鼠标的位置
-    if(!resize_) {
+    if (!resize_) {
         painter.drawText(cursor().pos().x(), cursor().pos().y(),
                          tr("(%1,%2)").arg(cursor().pos().x()).arg(cursor().pos().y()));
     } else {
         painter.drawText(endPos.x(), endPos.y(),
                          tr("(%1,%2)").arg(endPos.x()).arg(endPos.y()));
     }
-}
-
-void Screen::updateMouseLoc(QPainter &painter) {
 }
 
 void Screen::showEvent(QShowEvent *) //--窗体show事件
@@ -214,7 +226,8 @@ void Screen::saveScreen() {
 
 void Screen::saveScreenOther()//截图另存为
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "截图另存为", "test.bmp", "Image (*.jpg *.png *.bmp)");
+    QString fileName = QFileDialog::getSaveFileName(this,
+            "截图另存为", "test.bmp", "Image (*.jpg *.png *.bmp)");
 
     if (fileName.length() > 0) {
         fullScreen.copy(*rect_).save(fileName, "bmp");
@@ -225,7 +238,8 @@ void Screen::saveScreenOther()//截图另存为
 void Screen::grabFullScreen()//全屏截图
 {
     endPos.setX(-1);//此时避免画截图矩形
-    QString fileName = QFileDialog::getSaveFileName(this, "保存全屏截图", "test.bmp", "Image Files (*.bmp)");
+    QString fileName = QFileDialog::getSaveFileName(this,
+            "保存全屏截图", "test.bmp", "Image Files (*.bmp)");
 
     if (fileName.length() > 0) {
         fullScreen.save(fileName, "bmp");
@@ -251,93 +265,142 @@ void Screen::keyPressEvent(QKeyEvent *e) {
 }
 
 void Screen::drawResizeMark(QPainter &painter) {
-    int centerX = (endPos.x() + beginPos.x()) / 2;
-    int centerY = (endPos.y() + beginPos.y()) / 2;
     switch (resize_type_) {
-        case Right:{
-            this->rightRect = QRect( endPos.x() - mark_width_/2,
-                                centerY - mark_length_/2,
-                                mark_width_,
-                                mark_length_);
+        case Right: {
             painter.fillRect(this->rightRect, mark_color_);
             break;
         }
-        case Left:{
-            this->leftRect = QRect( beginPos.x()- mark_width_/2,
-                                centerY - mark_length_/2,
-                                mark_width_,
-                                mark_length_);
+        case Left: {
             painter.fillRect(this->leftRect, mark_color_);
             break;
         }
-        case Bottom:{
-            this->bottomRect = QRect( centerX - mark_length_/2,
-                                endPos.y() - mark_width_/2,
-                                mark_length_,
-                                mark_width_);
+        case Bottom: {
             painter.fillRect(this->bottomRect, mark_color_);
             break;
         }
-        case Top:{
-            this->topRect = QRect( centerX - mark_length_/2,
-                                beginPos.y() - mark_width_/2,
-                                mark_length_,
-                                mark_width_);
+        case Top: {
             painter.fillRect(this->topRect, mark_color_);
             break;
         }
-        case RightBottom:{
-            this->rightBottom_l = QRect( endPos.x() - mark_width_/2,
-                                 endPos.y() - mark_length_,
-                                 mark_width_,
-                                 mark_length_);
-            this->rightBottom_w = QRect( endPos.x() - mark_length_,
-                                 endPos.y() - mark_width_/2,
-                                 mark_length_,
-                                 mark_width_);
+        case RightBottom: {
             painter.fillRect(rightBottom_l, mark_color_);
             painter.fillRect(rightBottom_w, mark_color_);
             break;
         }
-        case RightTop:{
-            rightTop_w = QRect( endPos.x() - mark_length_,
-                                 beginPos.y() - mark_width_/2,
-                                 mark_length_,
-                                 mark_width_);
-            rightTop_l = QRect( endPos.x() - mark_width_,
-                                 beginPos.y() - mark_length_,
-                                 mark_width_,
-                                 mark_length_);
+        case RightTop: {
             painter.fillRect(rightTop_w, mark_color_);
             painter.fillRect(rightTop_l, mark_color_);
             break;
         }
-        case LeftTop:{
-            leftTop_w = QRect(beginPos.x() - mark_length_,
-                                beginPos.y() - mark_width_/2,
-                                mark_length_,
-                                mark_width_);
-            leftTop_l = QRect(beginPos.x() - mark_width_/2,
-                                beginPos.y() - mark_length_,
-                                mark_width_,
-                                mark_length_);
+        case LeftTop: {
             painter.fillRect(leftTop_w, mark_color_);
             painter.fillRect(leftTop_l, mark_color_);
             break;
         }
-        case LeftBottom:{
-            leftBottom_l = QRect(beginPos.x() - mark_width_/2,
-                                endPos.y() - mark_length_,
-                                mark_width_,
-                                mark_length_);
-            leftBottom_w = QRect(beginPos.x() - mark_length_,
-                                endPos.y() - mark_width_/2,
-                                mark_length_,
-                                mark_width_);
+        case LeftBottom: {
             painter.fillRect(leftBottom_l, mark_color_);
             painter.fillRect(leftBottom_w, mark_color_);
             break;
         }
-        default:{ break; }
+        default: {
+            break;
+        }
+    }
+}
+
+void Screen::initRectBottom(QPainter &painter) {
+    int centerX = (endPos.x() + beginPos.x()) / 2;
+    int centerY = (endPos.y() + beginPos.y()) / 2;
+    this->rightRect = QRect(endPos.x() - mark_width_ / 2,
+                            centerY - mark_length_ / 2,
+                            mark_width_,
+                            mark_length_);
+    this->leftRect = QRect(beginPos.x() - mark_width_ / 2,
+                           centerY - mark_length_ / 2,
+                           mark_width_,
+                           mark_length_);
+    this->bottomRect = QRect(centerX - mark_length_ / 2,
+                             endPos.y() - mark_width_ / 2,
+                             mark_length_,
+                             mark_width_);
+    this->topRect = QRect(centerX - mark_length_ / 2,
+                          beginPos.y() - mark_width_ / 2,
+                          mark_length_,
+                          mark_width_);
+    this->rightBottom_l = QRect(endPos.x() - mark_width_ / 2,
+                                endPos.y() - mark_length_ + mark_width_/2,
+                                mark_width_,
+                                mark_length_);
+    this->rightBottom_w = QRect(endPos.x() - mark_length_,
+                                endPos.y() - mark_width_ / 2,
+                                mark_length_,
+                                mark_width_);
+    rightTop_w = QRect(endPos.x() - mark_length_ + mark_width_/2,
+                       beginPos.y() - mark_width_ / 2,
+                       mark_length_,
+                       mark_width_);
+    rightTop_l = QRect(endPos.x() - mark_width_/2,
+                       beginPos.y() - mark_width_/2,
+                       mark_width_,
+                       mark_length_);
+    leftTop_w = QRect(beginPos.x() - mark_width_/2,
+                      beginPos.y() - mark_width_ / 2,
+                      mark_length_,
+                      mark_width_);
+    leftTop_l = QRect(beginPos.x() - mark_width_ / 2,
+                      beginPos.y() - mark_width_ /2,
+                      mark_width_,
+                      mark_length_);
+    leftBottom_l = QRect(beginPos.x() - mark_width_ / 2,
+                         endPos.y() - mark_length_ + mark_width_/2,
+                         mark_width_,
+                         mark_length_);
+    leftBottom_w = QRect(beginPos.x() - mark_width_/2,
+                         endPos.y() - mark_width_ / 2,
+                         mark_length_,
+                         mark_width_);
+}
+
+void Screen::containedRectInfer(QPoint pos, bool isPress){
+    if(isPress){
+        if (topRect.contains(pos)) {
+            buttom_press_type = Top;
+        } else if (bottomRect.contains(pos)) {
+            buttom_press_type = Bottom;
+        } else if (leftRect.contains(pos)) {
+            buttom_press_type = Left;
+        } else if (rightRect.contains(pos)) {
+            buttom_press_type = Right;
+        } else if (leftTop_l.contains(pos) || leftTop_w.contains(pos)) {
+            buttom_press_type = LeftTop;
+        } else if (rightTop_l.contains(pos) || rightTop_w.contains(pos)) {
+            buttom_press_type = RightTop;
+        } else if (leftBottom_l.contains(pos) || leftBottom_w.contains(pos)) {
+            buttom_press_type = LeftBottom;
+        } else if (rightBottom_l.contains(pos) || rightBottom_w.contains(pos)) {
+            buttom_press_type = RightBottom;
+        } else {
+            buttom_press_type = None;
+        }
+    } else {
+        if (topRect.contains(pos)) {
+            resize_type_ = Top;
+        } else if (bottomRect.contains(pos)) {
+            resize_type_ = Bottom;
+        } else if (leftRect.contains(pos)) {
+            resize_type_ = Left;
+        } else if (rightRect.contains(pos)) {
+            resize_type_ = Right;
+        } else if (leftTop_l.contains(pos) || leftTop_w.contains(pos)) {
+            resize_type_ = LeftTop;
+        } else if (rightTop_l.contains(pos) || rightTop_w.contains(pos)) {
+            resize_type_ = RightTop;
+        } else if (leftBottom_l.contains(pos) || leftBottom_w.contains(pos)) {
+            resize_type_ = LeftBottom;
+        } else if (rightBottom_l.contains(pos) || rightBottom_w.contains(pos)) {
+            resize_type_ = RightBottom;
+        } else {
+            resize_type_ = None;
+        }
     }
 }

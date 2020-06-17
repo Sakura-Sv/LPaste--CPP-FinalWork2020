@@ -1223,9 +1223,7 @@ CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/inclu
 CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtANGLE/GLES3/gl3.h
 CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtANGLE/GLES3/gl3platform.h
 CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtANGLE/KHR/khrplatform.h
-CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtCore/QDateTime
 CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtCore/QDebug
-CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtCore/QDir
 CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtCore/QEvent
 CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtCore/QFile
 CMakeFiles/C__Final2020.dir/screen/Screen.cpp.obj: D:/Qt/5.12.8/mingw73_32/include/QtCore/QList

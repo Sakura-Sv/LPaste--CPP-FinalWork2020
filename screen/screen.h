@@ -21,8 +21,7 @@
 #include <widget/Widget.h>
 #include <painterTool/PainterTool.h>
 
-enum ResizeType
-{
+enum ResizeType {
     None,
     Left,
     Right,
@@ -37,12 +36,16 @@ enum ResizeType
 class Screen : public QDialog {
 Q_OBJECT
 public:
-    explicit Screen(QWidget *parent=0, bool isExternalScreen = false);
+    explicit Screen(QWidget *parent = 0, bool isExternalScreen = false);
 
 signals:
+
     void grabSuccess();
+
 private slots:
+
     void saveScreen();
+
     void saveScreenOther();//截图另存为
     void grabFullScreen();//全屏截图
     void copyScreen(); //右键复制到粘贴板
@@ -55,8 +58,13 @@ protected:
     void showEvent(QShowEvent *);           //--窗体show事件
     void keyPressEvent(QKeyEvent *e);      //--按键事件
     void initParams(bool);
+
     void drawResizeMark(QPainter &);
-    void updateMouseLoc(QPainter &);
+
+    void initRectBottom(QPainter &);
+
+    void containedRectInfer(QPoint, bool); //
+
 private:
     QPoint beginPos;//记录鼠标的起始位置
     QPoint endPos;//记录鼠标的结束位置
@@ -64,15 +72,16 @@ private:
     QPoint moveEndPos;
     QMenu *menu; //右键菜单对象
     bool leftPres;//记录鼠标左键是否按下，按下为true
-    bool resize_ = false;
     bool move_;
+    bool resize_ = false;
     QRect *rect_; //矩形截图区域
-    PainterTool * painterTool = nullptr;
+    PainterTool *painterTool = nullptr;
     int rx;
     int ry;
     int rw;
     int rh;
     ResizeType resize_type_ = None;
+    ResizeType buttom_press_type = None;
     int mark_width_;
     int mark_length_;
     QColor mark_color_;
@@ -100,6 +109,9 @@ public:
     void setEndPos(QPoint p);//设置鼠标的结束位置
     void setMoveBeginPos(QPoint p);//设置鼠标的起始位置
     void setMoveEndPos(QPoint p);//设置鼠标的结束位置
+    void horizontalZoom(); //水平放缩
+    void verticalZoom(); //竖直放缩
+    void diagonalZoom(); //斜向放缩
 };
 
 #endif // SCREEN_H
