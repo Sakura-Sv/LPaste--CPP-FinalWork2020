@@ -18,6 +18,7 @@
 #include <QKeyEvent>
 #include <QRect>
 #include <QFile>
+#include <QTimer>
 #include <widget/Widget.h>
 #include <painterTool/PainterTool.h>
 
@@ -42,6 +43,8 @@ signals:
 
     void grabSuccess();
 
+    void beginToGrabSig();
+
 private slots:
 
     void saveScreen();
@@ -49,6 +52,8 @@ private slots:
     void saveScreenOther();//截图另存为
     void grabFullScreen();//全屏截图
     void copyScreen(); //右键复制到粘贴板
+    void changeGrabScreen();
+    void stopTimer();
 protected:
     void contextMenuEvent(QContextMenuEvent *);  //--右键菜单事件
     void mousePressEvent(QMouseEvent *e);       //--鼠标按下事件
@@ -63,7 +68,8 @@ protected:
 
     void initRectBottom(QPainter &);
 
-    void containedRectInfer(QPoint, bool); //
+    void containedRectInfer(QPoint, bool);
+
 
 private:
     QPoint beginPos;//记录鼠标的起始位置
@@ -98,6 +104,8 @@ private:
     QRect rightTop_w;
     QRect rightBottom_l;
     QRect rightBottom_w;
+    QTimer *timer;
+    bool isExternalScreen=false;
 public:
     QPixmap fullScreen;//全屏截图
 

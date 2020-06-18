@@ -99,9 +99,11 @@ void Widget::onBtnRectScreenClicked()
     if(desktopWidget->screenCount() != 1){
         adjustCurrentScreen();
     }
-    Screen *m = new Screen(this);
+    auto *m = new Screen(this);
+//    while(!beginToGrap) {
     m->fullScreen = QApplication::screens()[(int) this->isExternScreen]->grabWindow(0);
     m->showFullScreen();
+//    }
 }
 
 void Widget::onBtnMinClicked()
@@ -116,6 +118,10 @@ void Widget::onSystemTrayClicked(QSystemTrayIcon::ActivationReason reason) {
         case QSystemTrayIcon::Trigger:
         case QSystemTrayIcon::DoubleClick:
             this->show();
+            break;
+        case QSystemTrayIcon::Unknown:
+        case QSystemTrayIcon::Context:
+        case QSystemTrayIcon::MiddleClick:
             break;
     }
 }
@@ -141,6 +147,7 @@ void Widget::switchSlots(int vkCode) {
             }
             return;
         }
+        default:{return;}
     }
 }
 
@@ -168,7 +175,7 @@ void Widget::cleanInvalidFiles(QList<QFileInfo> & tempList){
     }
     qint64 cacheTime = QDateTime::currentDateTime().addDays(-2).toMSecsSinceEpoch();
     QString cacheTimeFileName = QString::number(cacheTime) + ".bmp";
-    for(auto file: tempList){
+    for(const auto& file: tempList){
         if(file.fileName() < cacheTimeFileName){
             file.dir().remove(file.fileName());
             tempList.removeOne(file);

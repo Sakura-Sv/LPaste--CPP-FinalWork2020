@@ -19,6 +19,6 @@
          widget/Widget.cpp widget/Widget.h widget/Widget.ui
          lowLevelKeyBoardHook/LowLevelKeyBoardHook.h lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp
          pasteLabel/PasteLabel.cpp pasteLabel/PasteLabel.h
-         painterTool/PainterTool.cpp painterTool/PainterTool.h painterTool/PainterTool.ui)
+         painterTool/PainterTool.cpp painterTool/PainterTool.h painterTool/PainterTool.ui magnifierGlass/MagnifierGlass.cpp magnifierGlass/MagnifierGlass.h)
 
  target_link_libraries(C__Final2020 Qt5::Widgets)

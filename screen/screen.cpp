@@ -3,8 +3,12 @@
 #include <painterTool/PainterTool.h>
 
 Screen::Screen(QWidget *parent, bool isExternalScreen) :
-        QDialog(0) {
+        QDialog(parent) {
     initParams(isExternalScreen);
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(changeGrabScreen()));
+    timer->start(1000);
+    connect(this, SIGNAL(beginToGrabSig()), this, SLOT(stopTimer()));
     menu = new QMenu(this);//创建右键菜单
     menu->addAction("复制(CTRL+C)", this, SLOT(copyScreen()));
     menu->addAction("截图另存为(ALT+C)", this, SLOT(saveScreenOther()));
@@ -12,6 +16,8 @@ Screen::Screen(QWidget *parent, bool isExternalScreen) :
     menu->addAction("退出截图(ESC)", this, SLOT(hide()));
     connect(this, SIGNAL(grabSuccess()), parent, SLOT(initFileList()));
     this->setWindowFlags(Qt::Tool);
+    this->setStyleSheet("QDialog{background-color: rgba(255, 255, 255, 0);}");
+//    setWindowOpacity(0);
 }
 
 void Screen::initParams(bool isExternalScreen) {
@@ -25,9 +31,9 @@ void Screen::initParams(bool isExternalScreen) {
     mark_length_l = 50;
     mark_length_w = 50;
     mark_width_ = 15;
-    mark_color_ = QColor(0, 47, 167);
-    setCursor(Qt::CrossCursor);
+    mark_color_ = QColor(52, 228, 252);
     setMouseTracking(true);//开启鼠标实时追踪，实时的显示鼠标的位置
+    this->isExternalScreen = isExternalScreen;
 }
 
 void Screen::copyScreen() //将截图复制到粘贴板
@@ -46,6 +52,7 @@ void Screen::mousePressEvent(QMouseEvent *e)       //--鼠标按下事件
     //添加menu->isActiveWindow()条件是为了在右键菜单时不进行截图区域调整
     if (!resize_ && e->button() == Qt::LeftButton && !menu->isActiveWindow())//鼠标左键按下
     {
+        emit beginToGrabSig();
         leftPres = true;
         setBeginPos(e->pos());//鼠标相对窗体的位置，记录截图的开始位置
     }
@@ -91,12 +98,13 @@ void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
             case Bottom:
                 verticalZoom();
                 break;
-            case LeftTop:
             case LeftBottom:
             case RightTop:
+            case LeftTop:
             case RightBottom:
                 diagonalZoom();
                 break;
+            default: break;
         }
         update();
         setMoveBeginPos(e->pos());
@@ -211,10 +219,9 @@ void Screen::diagonalZoom() {
 }
 
 void Screen::paintEvent(QPaintEvent *) {
-
     QPainter painter(this); //将当前窗体对象设置为画布
     QPen pen;
-    pen.setColor(Qt::blue);//设置笔色
+    pen.setColor(Qt::white);//设置笔色
     pen.setWidth(1);     //画笔线条宽度
     painter.setPen(pen);
 
@@ -549,84 +556,82 @@ void Screen::initRectBottom(QPainter &painter) {
                          endPos.y() - mark_width_ / 2,
                          lessLen,
                          mark_width_);
-//    if(beginPos.x() > endPos.x()){
-//        QRect temp;
-//        temp = rightRect;
-//        rightRect = leftRect;
-//        leftRect = temp;
-//        temp = leftTop_l;
-//        leftTop_l = rightTop_l;
-//        rightTop_l = temp;
-//        temp = leftTop_w;
-//        leftTop_w = rightTop_w;
-//        rightTop_w = temp;
-//        temp = leftBottom_l;
-//        leftBottom_l = rightBottom_l;
-//        rightBottom_l = temp;
-//        temp = leftBottom_w;
-//        leftBottom_w = rightBottom_w;
-//        rightBottom_w = temp;
-//    }
-//    if(beginPos.y() > endPos.y()){
-//        QRect temp;
-//        temp = topRect;
-//        topRect = bottomRect;
-//        bottomRect = temp;
-//        temp = leftTop_l;
-//        leftTop_l = leftBottom_l;
-//        leftBottom_l = temp;
-//        temp = leftTop_w;
-//        leftTop_w = leftBottom_l;
-//        leftBottom_l = temp;
-//        temp = rightTop_l;
-//        rightTop_l = rightBottom_l;
-//        rightBottom_l = temp;
-//        temp = rightTop_w;
-//        rightTop_w = rightBottom_w;
-//        rightBottom_w = temp;
-//    }
 }
 
 void Screen::containedRectInfer(QPoint pos, bool isPress) {
     if (isPress) {
+        if(this->rect_->contains(pos)){
+            setCursor(Qt::CrossCursor);
+        }
         if (topRect.contains(pos)) {
             buttom_press_type = Top;
+            setCursor(Qt::SizeVerCursor);
         } else if (bottomRect.contains(pos)) {
             buttom_press_type = Bottom;
+            setCursor(Qt::SizeVerCursor);
         } else if (leftRect.contains(pos)) {
             buttom_press_type = Left;
+            setCursor(Qt::SizeHorCursor);
         } else if (rightRect.contains(pos)) {
             buttom_press_type = Right;
+            setCursor(Qt::SizeHorCursor);
         } else if (leftTop_l.contains(pos) || leftTop_w.contains(pos)) {
             buttom_press_type = LeftTop;
+            setCursor(Qt::SizeFDiagCursor);
         } else if (rightTop_l.contains(pos) || rightTop_w.contains(pos)) {
             buttom_press_type = RightTop;
+            setCursor(Qt::SizeBDiagCursor);
         } else if (leftBottom_l.contains(pos) || leftBottom_w.contains(pos)) {
             buttom_press_type = LeftBottom;
+            setCursor(Qt::SizeBDiagCursor);
         } else if (rightBottom_l.contains(pos) || rightBottom_w.contains(pos)) {
             buttom_press_type = RightBottom;
-        } else {
+            setCursor(Qt::SizeFDiagCursor);
+        } else if(!this->rect_->contains(pos)){
             buttom_press_type = None;
+            setCursor(Qt::ArrowCursor);
         }
     } else {
+        if(this->rect_->contains(pos)){
+            setCursor(Qt::CrossCursor);
+        }
         if (topRect.contains(pos)) {
             resize_type_ = Top;
+            setCursor(Qt::SizeVerCursor);
         } else if (bottomRect.contains(pos)) {
             resize_type_ = Bottom;
+            setCursor(Qt::SizeVerCursor);
         } else if (leftRect.contains(pos)) {
             resize_type_ = Left;
+            setCursor(Qt::SizeHorCursor);
         } else if (rightRect.contains(pos)) {
             resize_type_ = Right;
+            setCursor(Qt::SizeHorCursor);
         } else if (leftTop_l.contains(pos) || leftTop_w.contains(pos)) {
             resize_type_ = LeftTop;
+            setCursor(Qt::SizeFDiagCursor);
         } else if (rightTop_l.contains(pos) || rightTop_w.contains(pos)) {
             resize_type_ = RightTop;
+            setCursor(Qt::SizeBDiagCursor);
         } else if (leftBottom_l.contains(pos) || leftBottom_w.contains(pos)) {
             resize_type_ = LeftBottom;
+            setCursor(Qt::SizeBDiagCursor);
         } else if (rightBottom_l.contains(pos) || rightBottom_w.contains(pos)) {
             resize_type_ = RightBottom;
-        } else {
+            setCursor(Qt::SizeFDiagCursor);
+        } else if(!this->rect_->contains(pos)){
             resize_type_ = None;
+            setCursor(Qt::ArrowCursor);
         }
     }
+}
+
+void Screen::changeGrabScreen(){
+//    hide();
+//    this->fullScreen = QApplication::screens()[(int) this->isExternalScreen]->grabWindow(0);
+//    show();
+}
+
+void Screen::stopTimer(){
+    timer->stop();
 }

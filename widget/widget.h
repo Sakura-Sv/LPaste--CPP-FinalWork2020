@@ -48,7 +48,7 @@ protected:
     void mousePressEvent(QMouseEvent *e);       //--鼠标按下事件
     void mouseMoveEvent(QMouseEvent *e);       //--鼠标移动事件
     void mouseReleaseEvent(QMouseEvent *e);   //--鼠标释放（松开）事件
-    void cleanInvalidFiles(QList<QFileInfo> &);
+    static void cleanInvalidFiles(QList<QFileInfo> &);
     void systemTrayInitFinished();
     void adjustCurrentScreen();
 private:
