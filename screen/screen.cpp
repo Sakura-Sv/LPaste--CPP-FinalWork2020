@@ -3,7 +3,7 @@
 #include <painterTool/PainterTool.h>
 
 Screen::Screen(QWidget *parent, bool isExternalScreen) :
-        QDialog(parent) {
+        QDialog(0) {
     initParams(isExternalScreen);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(changeGrabScreen()));
@@ -104,11 +104,13 @@ void Screen::mouseMoveEvent(QMouseEvent *e)    //--鼠标移动事件
             case RightBottom:
                 diagonalZoom();
                 break;
-            default: break;
+            default:
+                break;
         }
         update();
         setMoveBeginPos(e->pos());
     }
+    update();
 }
 
 void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事件
@@ -262,6 +264,7 @@ void Screen::paintEvent(QPaintEvent *) {
         painter.drawText(endPos.x(), endPos.y(),
                          tr("(%1,%2)").arg(endPos.x()).arg(endPos.y()));
     }
+    magnifierGlass(painter);
 }
 
 void Screen::showEvent(QShowEvent *) //--窗体show事件
@@ -313,179 +316,56 @@ void Screen::keyPressEvent(QKeyEvent *e) {
         grabFullScreen();
     } else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
         saveScreen();
+    } else if (e->key() == Qt::Key_S) {
+        isRGB = !isRGB;
+        update();
+    } else if (e->key() == Qt::Key_C) {
+        QApplication::clipboard()->setText(cursorPixColor);
     } else {
         e->ignore();
     }
 }
 
 void Screen::drawResizeMark(QPainter &painter) {
-    if(beginPos.x() > endPos.x() && beginPos.y() > endPos.y()){
-        switch (resize_type_) {
-            case Right: {
-                painter.fillRect(leftRect, mark_color_);
-                break;
-            }
-            case Left: {
-                painter.fillRect(rightRect, mark_color_);
-                break;
-            }
-            case Bottom: {
-                painter.fillRect(topRect, mark_color_);
-                break;
-            }
-            case Top: {
-                painter.fillRect(bottomRect, mark_color_);
-                break;
-            }
-            case RightBottom: {
-                painter.fillRect(leftTop_l, mark_color_);
-                painter.fillRect(leftTop_w, mark_color_);
-                break;
-            }
-            case RightTop: {
-                painter.fillRect(leftBottom_l, mark_color_);
-                painter.fillRect(leftBottom_w, mark_color_);
-                break;
-            }
-            case LeftTop: {
-                painter.fillRect(rightBottom_l, mark_color_);
-                painter.fillRect(rightBottom_w, mark_color_);
-                break;
-            }
-            case LeftBottom: {
-                painter.fillRect(rightTop_l, mark_color_);
-                painter.fillRect(rightTop_w, mark_color_);
-                break;
-            }
-            default: {
-                break;
-            }
+    switch (resize_type_) {
+        case Right: {
+            painter.fillRect(rightRect, mark_color_);
+            break;
         }
-    } else if(beginPos.x() > endPos.x()){
-        switch (resize_type_) {
-            case Right: {
-                painter.fillRect(leftRect, mark_color_);
-                break;
-            }
-            case Left: {
-                painter.fillRect(rightRect, mark_color_);
-                break;
-            }
-            case Bottom: {
-                painter.fillRect(bottomRect, mark_color_);
-                break;
-            }
-            case Top: {
-                painter.fillRect(topRect, mark_color_);
-                break;
-            }
-            case RightBottom: {
-                painter.fillRect(leftBottom_l, mark_color_);
-                painter.fillRect(leftBottom_w, mark_color_);
-                break;
-            }
-            case RightTop: {
-                painter.fillRect(leftTop_l, mark_color_);
-                painter.fillRect(leftTop_l, mark_color_);
-                break;
-            }
-            case LeftTop: {
-                painter.fillRect(rightTop_w, mark_color_);
-                painter.fillRect(rightTop_l, mark_color_);
-                break;
-            }
-            case LeftBottom: {
-                painter.fillRect(rightBottom_l, mark_color_);
-                painter.fillRect(rightBottom_w, mark_color_);
-                break;
-            }
-            default: {
-                break;
-            }
+        case Left: {
+            painter.fillRect(leftRect, mark_color_);
+            break;
         }
-    } else if (beginPos.y() > endPos.y()){
-        switch (resize_type_) {
-            case Right: {
-                painter.fillRect(rightRect, mark_color_);
-                break;
-            }
-            case Left: {
-                painter.fillRect(leftRect, mark_color_);
-                break;
-            }
-            case Bottom: {
-                painter.fillRect(topRect, mark_color_);
-                break;
-            }
-            case Top: {
-                painter.fillRect(bottomRect, mark_color_);
-                break;
-            }
-            case RightBottom: {
-                painter.fillRect(rightTop_l, mark_color_);
-                painter.fillRect(rightTop_w, mark_color_);
-                break;
-            }
-            case RightTop: {
-                painter.fillRect(rightBottom_l, mark_color_);
-                painter.fillRect(rightBottom_w, mark_color_);
-                break;
-            }
-            case LeftTop: {
-                painter.fillRect(leftBottom_l, mark_color_);
-                painter.fillRect(leftBottom_w, mark_color_);
-                break;
-            }
-            case LeftBottom: {
-                painter.fillRect(leftTop_l, mark_color_);
-                painter.fillRect(leftTop_w, mark_color_);
-                break;
-            }
-            default: {
-                break;
-            }
+        case Bottom: {
+            painter.fillRect(bottomRect, mark_color_);
+            break;
         }
-    }else {
-        switch (resize_type_) {
-            case Right: {
-                painter.fillRect(rightRect, mark_color_);
-                break;
-            }
-            case Left: {
-                painter.fillRect(leftRect, mark_color_);
-                break;
-            }
-            case Bottom: {
-                painter.fillRect(bottomRect, mark_color_);
-                break;
-            }
-            case Top: {
-                painter.fillRect(topRect, mark_color_);
-                break;
-            }
-            case RightBottom: {
-                painter.fillRect(rightBottom_l, mark_color_);
-                painter.fillRect(rightBottom_w, mark_color_);
-                break;
-            }
-            case RightTop: {
-                painter.fillRect(rightTop_w, mark_color_);
-                painter.fillRect(rightTop_l, mark_color_);
-                break;
-            }
-            case LeftTop: {
-                painter.fillRect(leftTop_w, mark_color_);
-                painter.fillRect(leftTop_l, mark_color_);
-                break;
-            }
-            case LeftBottom: {
-                painter.fillRect(leftBottom_l, mark_color_);
-                painter.fillRect(leftBottom_w, mark_color_);
-                break;
-            }
-            default: {
-                break;
-            }
+        case Top: {
+            painter.fillRect(topRect, mark_color_);
+            break;
+        }
+        case RightBottom: {
+            painter.fillRect(rightBottom_l, mark_color_);
+            painter.fillRect(rightBottom_w, mark_color_);
+            break;
+        }
+        case RightTop: {
+            painter.fillRect(rightTop_w, mark_color_);
+            painter.fillRect(rightTop_l, mark_color_);
+            break;
+        }
+        case LeftTop: {
+            painter.fillRect(leftTop_w, mark_color_);
+            painter.fillRect(leftTop_l, mark_color_);
+            break;
+        }
+        case LeftBottom: {
+            painter.fillRect(leftBottom_l, mark_color_);
+            painter.fillRect(leftBottom_w, mark_color_);
+            break;
+        }
+        default: {
+            break;
         }
     }
 }
@@ -497,41 +377,41 @@ void Screen::initRectBottom(QPainter &painter) {
     this->mark_length_w = this->rect_->width() / 8;
     int lessLen;
 
-    if(mark_length_l > mark_length_w){
+    if (mark_length_l > mark_length_w) {
         lessLen = mark_length_w;
     } else { lessLen = mark_length_l; }
 
-    this->mark_width_ = lessLen/5;
-    if(mark_width_ < 5){
+    this->mark_width_ = lessLen / 5;
+    if (mark_width_ < 5) {
         mark_width_ = 5;
-    } else if (mark_width_ > 12){
+    } else if (mark_width_ > 12) {
         mark_width_ = 12;
     }
 
     rightRect = QRect(endPos.x() - mark_width_ / 2,
-                            centerY - mark_length_l,
-                            mark_width_,
-                            mark_length_l * 2);
+                      centerY - mark_length_l,
+                      mark_width_,
+                      mark_length_l * 2);
     leftRect = QRect(beginPos.x() - mark_width_ / 2,
-                           centerY - mark_length_l ,
-                           mark_width_,
-                           mark_length_l * 2);
+                     centerY - mark_length_l,
+                     mark_width_,
+                     mark_length_l * 2);
     bottomRect = QRect(centerX - mark_length_w,
-                             endPos.y() - mark_width_ / 2,
-                             mark_length_w * 2,
-                             mark_width_);
+                       endPos.y() - mark_width_ / 2,
+                       mark_length_w * 2,
+                       mark_width_);
     topRect = QRect(centerX - mark_length_w,
-                          beginPos.y() - mark_width_ / 2,
-                          mark_length_w * 2,
-                          mark_width_);
+                    beginPos.y() - mark_width_ / 2,
+                    mark_length_w * 2,
+                    mark_width_);
     rightBottom_l = QRect(endPos.x() - mark_width_ / 2,
-                                endPos.y() - lessLen + mark_width_ / 2,
-                                mark_width_,
-                                lessLen);
+                          endPos.y() - lessLen + mark_width_ / 2,
+                          mark_width_,
+                          lessLen);
     rightBottom_w = QRect(endPos.x() - lessLen + mark_width_ / 2,
-                                endPos.y() - mark_width_ / 2,
-                                lessLen,
-                                mark_width_);
+                          endPos.y() - mark_width_ / 2,
+                          lessLen,
+                          mark_width_);
     rightTop_w = QRect(endPos.x() - lessLen + mark_width_ / 2,
                        beginPos.y() - mark_width_ / 2,
                        lessLen,
@@ -560,7 +440,7 @@ void Screen::initRectBottom(QPainter &painter) {
 
 void Screen::containedRectInfer(QPoint pos, bool isPress) {
     if (isPress) {
-        if(this->rect_->contains(pos)){
+        if (this->rect_->contains(pos)) {
             setCursor(Qt::CrossCursor);
         }
         if (topRect.contains(pos)) {
@@ -587,12 +467,12 @@ void Screen::containedRectInfer(QPoint pos, bool isPress) {
         } else if (rightBottom_l.contains(pos) || rightBottom_w.contains(pos)) {
             buttom_press_type = RightBottom;
             setCursor(Qt::SizeFDiagCursor);
-        } else if(!this->rect_->contains(pos)){
+        } else if (!this->rect_->contains(pos)) {
             buttom_press_type = None;
             setCursor(Qt::ArrowCursor);
         }
     } else {
-        if(this->rect_->contains(pos)){
+        if (this->rect_->contains(pos)) {
             setCursor(Qt::CrossCursor);
         }
         if (topRect.contains(pos)) {
@@ -619,19 +499,89 @@ void Screen::containedRectInfer(QPoint pos, bool isPress) {
         } else if (rightBottom_l.contains(pos) || rightBottom_w.contains(pos)) {
             resize_type_ = RightBottom;
             setCursor(Qt::SizeFDiagCursor);
-        } else if(!this->rect_->contains(pos)){
+        } else if (!this->rect_->contains(pos)) {
             resize_type_ = None;
             setCursor(Qt::ArrowCursor);
         }
     }
 }
 
-void Screen::changeGrabScreen(){
+void Screen::changeGrabScreen() {
 //    hide();
 //    this->fullScreen = QApplication::screens()[(int) this->isExternalScreen]->grabWindow(0);
 //    show();
 }
 
-void Screen::stopTimer(){
+void Screen::stopTimer() {
     timer->stop();
+}
+
+void Screen::magnifierGlass(QPainter &painter) {
+    int cursorX = (int) cursor().pos().x();
+    int cursorY = (int) cursor().pos().y();
+    if (resize_ && !move_ && !rect_->contains(cursorX, cursorY)) {
+        return;
+    }
+    int pixX = cursorX + 20;
+    int pixY = cursorY + 20;
+    int winH = (int) winSize.height();
+    int winW = (int) winSize.width();
+    QPixmap glassRect = fullScreen.copy(cursorX - winW / magnificationTimes / 2,
+                                        cursorY - winH * split / magnificationTimes / 2,
+                                        winW / magnificationTimes,
+                                        winH * split / magnificationTimes);
+    painter.drawPixmap(pixX, pixY,
+                       winW,
+                       winH, glassRect);
+    QPixmap cursorPix = glassRect.copy(winW / magnificationTimes / 2,
+                                       winH * split / magnificationTimes / 2,
+                                       1, 1);//截图1个像素
+    QColor color = cursorPix.toImage().pixel(0, 0);
+    if (color.red() > 100 && color.blue() > 100 && color.green() > 100)    //调节方框颜色，使得更容易区分
+        painter.setPen(QColor(0, 0, 0));
+    else
+        painter.setPen(QColor(255, 255, 255));
+    // 解释背景方块
+    painter.fillRect(pixX, pixY + winH,
+                     winW, winH * (1 - split),
+                     QColor(0, 0, 0));
+    // 色块
+    painter.fillRect(pixX + winW / 20, pixY + winH + winH / 20, winW / 4, winH / 5, color);
+    // 准心  外准心
+    painter.drawRect(pixX + winW / 2, pixY + winH / 2,
+                     10, 14);
+    painter.drawRect(pixX + winW / 2, pixY + winH / 2,
+                     10, 14);
+
+    // 准心 内准心
+    painter.fillRect(pixX + winW / 2, pixY + winH / 2,
+                     10, 14, color);
+    painter.drawRect(pixX, pixY + winH / 2,
+                     winW, 14);
+    painter.drawRect(pixX + winW / 2, pixY,
+                     10, winH);
+
+    painter.setPen(QColor(255, 255, 255));
+    // 解释区域边框
+    painter.drawRect(pixX, pixY + winH,
+                     winW, winH * (1 - split));
+    // 放大区域边框
+    painter.drawRect(pixX, pixY, winW, winH);
+    // 解释语言
+    QString theColor;
+    if (isRGB) {
+        theColor = QString().sprintf("%d, %d, %d", color.red(), color.green(),
+                                     color.blue());
+        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 8, "RGB");
+        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 4,
+                         theColor);       //根据透明度算法复原原色素值
+    } else {
+        theColor = QString("#") + QString::number(color.red(), 16).right(2) +
+                   QString::number(color.green(), 16).right(2) +
+                   QString::number(color.blue(), 16).right(2);
+        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 8, "HEX");
+        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 4,
+                         theColor);
+    }
+    cursorPixColor = theColor;
 }

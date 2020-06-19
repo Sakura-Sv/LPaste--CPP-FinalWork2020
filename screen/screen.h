@@ -34,6 +34,12 @@ enum ResizeType {
     RightBottom
 };
 
+const QSize winSize(200,150);       //窗口尺寸
+const int grabInterval=50;          //刷新频率
+const int magnificationTimes=10;    //放大倍数
+const double split=0.7;             //分割
+const int sizeOfMouseIcon=20;       //鼠标图标大小
+
 class Screen : public QDialog {
 Q_OBJECT
 public:
@@ -70,6 +76,7 @@ protected:
 
     void containedRectInfer(QPoint, bool);
 
+    void magnifierGlass(QPainter &);
 
 private:
     QPoint beginPos;//记录鼠标的起始位置
@@ -106,6 +113,8 @@ private:
     QRect rightBottom_w;
     QTimer *timer;
     bool isExternalScreen=false;
+    bool isRGB = true;
+    QString cursorPixColor = "";
 public:
     QPixmap fullScreen;//全屏截图
 
