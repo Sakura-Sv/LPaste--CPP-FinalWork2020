@@ -543,7 +543,7 @@ void Screen::magnifierGlass(QPainter &painter) {
         painter.setPen(QColor(255, 255, 255));
     // 解释背景方块
     painter.fillRect(pixX, pixY + winH,
-                     winW, winH * (1 - split),
+                     winW, winH * (1 - split) * 2,
                      QColor(0, 0, 0));
     // 色块
     painter.fillRect(pixX + winW / 20, pixY + winH + winH / 20, winW / 4, winH / 5, color);
@@ -564,7 +564,7 @@ void Screen::magnifierGlass(QPainter &painter) {
     painter.setPen(QColor(255, 255, 255));
     // 解释区域边框
     painter.drawRect(pixX, pixY + winH,
-                     winW, winH * (1 - split));
+                     winW, winH * (1 - split) * 2);
     // 放大区域边框
     painter.drawRect(pixX, pixY, winW, winH);
     // 解释语言
@@ -579,9 +579,12 @@ void Screen::magnifierGlass(QPainter &painter) {
         theColor = QString("#") + QString::number(color.red(), 16).right(2) +
                    QString::number(color.green(), 16).right(2) +
                    QString::number(color.blue(), 16).right(2);
-        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 8, "HEX");
-        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 4,
+        painter.drawText(pixX + winW / 10 + winW / 4 , pixY + winH + winH / 8, "HEX");
+        painter.drawText(pixX + winW / 10 + winW / 4, pixY + winH + winH / 4,
                          theColor);
     }
     cursorPixColor = theColor;
+    painter.drawText( pixX + winW / 20, pixY + winH + winH /3 + winH/20, "Tap 'X' to change mode ");
+    painter.drawText( pixX + winW / 20, pixY + winH + winH /3 + winH/6, "between RGB/HEX");
+    painter.drawText( pixX + winW / 20, pixY + winH + winH /3 + winH/4 + winH/20 , "Tap 'C' to copy");
 }
