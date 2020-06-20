@@ -79,6 +79,7 @@ protected:
     void magnifierGlass(QPainter &);
 
 private:
+    Q_DISABLE_COPY(Screen);
     QPoint beginPos;//记录鼠标的起始位置
     QPoint endPos;//记录鼠标的结束位置
     QPoint moveBeginPos;

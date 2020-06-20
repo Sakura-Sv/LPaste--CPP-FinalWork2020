@@ -7,10 +7,11 @@
 #include <iostream>
 #include "PasteLabel.h"
 
-PasteLabel::PasteLabel(QWidget *parent, QString path) : QLabel() {
+PasteLabel::PasteLabel(QWidget *parent, QFileInfo file) : QLabel() {
     this->mouse_press = false;
-    connect(this, SIGNAL(pasteHide()), parent, SLOT(rollbackOffset()));
-    this->setPixmap(*new QPixmap(path));
+    this->file = file;
+    connect(this, SIGNAL(pasteHide(QFileInfo)), parent, SLOT(closePaste(QFileInfo)));
+    this->setPixmap(*new QPixmap(file.absoluteFilePath()));
     this->setAlignment(Qt::AlignBottom | Qt::AlignRight);
     this->setMinimumSize(200, 200);
     this->setCursor(Qt::SizeFDiagCursor);
@@ -24,7 +25,6 @@ PasteLabel::PasteLabel(QWidget *parent, QString path) : QLabel() {
 }
 
 PasteLabel::~PasteLabel() {}
-
 
 void PasteLabel::mousePressEvent(QMouseEvent *event) {
     if ((event->button() == Qt::LeftButton)) {
@@ -46,7 +46,7 @@ void PasteLabel::mouseReleaseEvent(QMouseEvent *event) {
 void PasteLabel::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Escape) {
         hide();
-        emit pasteHide();
+        emit pasteHide(file);
     } else {
         event->ignore();
     }

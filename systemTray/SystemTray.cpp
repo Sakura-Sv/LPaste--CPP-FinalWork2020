@@ -25,7 +25,7 @@ void mySystemTray::systemTrayInit(QWidget *mainWindow)
 
 void mySystemTray::mySystemTrayInitFinished(QSystemTrayIcon * systemTray) {
     systemTray->showMessage("App is ready",
-            "Just Enjoy it!\n"
+            "Just Enjoy it!\nLet's try to tap F1!\n"
                  "                         --from LiuZhen",
                  QSystemTrayIcon::MessageIcon::Information,
                  5000);

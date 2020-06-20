@@ -6,15 +6,16 @@
 #define C__FINALWORK_PASTELABEL_H
 
 #include <QLabel>
+#include <QtCore/QFileInfo>
 
 class PasteLabel : public QLabel{
     Q_OBJECT
 public:
-    explicit PasteLabel(QWidget * parent, QString path);
+    explicit PasteLabel(QWidget * parent, QFileInfo file);
     ~PasteLabel();
 
 signals:
-    void pasteHide();
+    void pasteHide(QFileInfo file);
 protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
@@ -26,7 +27,7 @@ private slots:
     void onZoomOutImage();
 private:
     Q_DISABLE_COPY(PasteLabel);
-
+    QFileInfo file;
     QPoint mousePoint;
     bool mouse_press;
     int pixmapWidth;

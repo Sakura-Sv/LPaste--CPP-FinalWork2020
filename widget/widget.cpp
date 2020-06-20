@@ -81,9 +81,9 @@ void Widget::onBtnFullScreenClicked()
 {
     //获取全屏截图
     QPixmap qPixmap = QApplication::primaryScreen()->grabWindow(this->desktopWidget->winId());
-    QString fileName = QFileDialog::getSaveFileName(this, "文件另存为", "", tr("Config Files (*.bmp)"));
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as", "", tr("Config Files (*.bmp)"));
     if (fileName.length() > 0 && qPixmap.save(fileName, "bmp")) {
-        QMessageBox::information(this, "提示", "保存成功!", QMessageBox::Ok);
+        QMessageBox::information(this, "Tips:", "Save successfully!", QMessageBox::Ok);
     }
 }
 
@@ -132,7 +132,7 @@ void Widget::onBtnCloseClicked()
 }
 
 void Widget::onBtnPasteClicked() {
-    new PasteLabel(this, this->pasteCacheList[offset--].absoluteFilePath());
+    new PasteLabel(this, this->pasteCacheList[offset--]);
 }
 
 void Widget::switchSlots(int vkCode) {
@@ -165,8 +165,9 @@ void Widget::initFileList(bool isInit){
     this->offset = tempList.size() - 1;
 }
 
-void Widget::rollbackOffset(){
-    ++this->offset;
+void Widget::closePaste(QFileInfo file){
+    pasteCacheList.move(this->pasteCacheList.indexOf(file), offset + 1);
+    ++offset;
 }
 
 void Widget::cleanInvalidFiles(QList<QFileInfo> & tempList){

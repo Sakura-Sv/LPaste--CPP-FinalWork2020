@@ -6,6 +6,7 @@
 #define C__FINALWORK_PAINTERTOOL_H
 
 #include <QWidget>
+#include <QtWidgets/QMessageBox>
 
 namespace Ui{
     class PainterTool;
@@ -24,8 +25,13 @@ protected:
 
 private:
     Ui::PainterTool *ui;
+    Q_DISABLE_COPY(PainterTool);
 private slots:
     void saveScreen();
+    void printOnScreen();
+    void unknown();
+    void rollback();
+    void goahead();
 };
 
 

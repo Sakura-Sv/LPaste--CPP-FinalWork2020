@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets/QtWidgets>
+#include <iostream>
 
 namespace Ui {
     class Widget;
@@ -40,7 +41,7 @@ public slots:
 
     void initFileList(bool isInit = false);
 
-    void rollbackOffset();
+    void closePaste(QFileInfo file);
 
 protected:
     void enterEvent(QEvent *e);  //--鼠标进入事件
@@ -54,6 +55,7 @@ protected:
 private:
     Ui::Widget *ui;
 private:
+    Q_DISABLE_COPY(Widget);
     bool leftPress;
     QPoint beginPos;
     QList<QFileInfo> pasteCacheList;

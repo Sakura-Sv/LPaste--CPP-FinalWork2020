@@ -10,10 +10,10 @@ Screen::Screen(QWidget *parent, bool isExternalScreen) :
     timer->start(1000);
     connect(this, SIGNAL(beginToGrabSig()), this, SLOT(stopTimer()));
     menu = new QMenu(this);//创建右键菜单
-    menu->addAction("复制(CTRL+C)", this, SLOT(copyScreen()));
-    menu->addAction("截图另存为(ALT+C)", this, SLOT(saveScreenOther()));
-    menu->addAction("全屏截图(ALT+A)", this, SLOT(grabFullScreen()));
-    menu->addAction("退出截图(ESC)", this, SLOT(hide()));
+    menu->addAction("Copy(CTRL+C)", this, SLOT(copyScreen()));
+    menu->addAction("Save as(ALT+C)", this, SLOT(saveScreenOther()));
+    menu->addAction("FullScreen(ALT+A)", this, SLOT(grabFullScreen()));
+    menu->addAction("Quit(ESC)", this, SLOT(hide()));
     connect(this, SIGNAL(grabSuccess()), parent, SLOT(initFileList()));
     this->setWindowFlags(Qt::Tool);
     this->setStyleSheet("QDialog{background-color: rgba(255, 255, 255, 0);}");
@@ -258,8 +258,8 @@ void Screen::paintEvent(QPaintEvent *) {
 
     //实时显示鼠标的位置
     if (!resize_) {
-        painter.drawText(cursor().pos().x(), cursor().pos().y(),
-                         tr("(%1,%2)").arg(cursor().pos().x()).arg(cursor().pos().y()));
+        painter.drawText(QCursor::pos().x(), QCursor::pos().y(),
+                         tr("(%1,%2)").arg(QCursor::pos().x()).arg(QCursor::pos().y()));
     } else {
         painter.drawText(endPos.x(), endPos.y(),
                          tr("(%1,%2)").arg(endPos.x()).arg(endPos.y()));
@@ -517,8 +517,16 @@ void Screen::stopTimer() {
 }
 
 void Screen::magnifierGlass(QPainter &painter) {
-    int cursorX = (int) cursor().pos().x();
-    int cursorY = (int) cursor().pos().y();
+    int cursorX = (int) QCursor::pos().x();
+    int cursorY = (int) QCursor::pos().y();
+    int transferNumX = 0;
+    int transferNumY = 0;
+    if (cursorX > fullScreen.width() - winSize.width() - 20) {
+        transferNumX = winSize.width() + 20;
+    }
+    if (cursorY > fullScreen.height() - winSize.height() * 2 - 20) {
+        transferNumY = winSize.height() * 2 + 20;
+    }
     if (resize_ && !move_ && !rect_->contains(cursorX, cursorY)) {
         return;
     }
@@ -530,7 +538,7 @@ void Screen::magnifierGlass(QPainter &painter) {
                                         cursorY - winH * split / magnificationTimes / 2,
                                         winW / magnificationTimes,
                                         winH * split / magnificationTimes);
-    painter.drawPixmap(pixX, pixY,
+    painter.drawPixmap(pixX - transferNumX, pixY - transferNumY,
                        winW,
                        winH, glassRect);
     QPixmap cursorPix = glassRect.copy(winW / magnificationTimes / 2,
@@ -542,49 +550,58 @@ void Screen::magnifierGlass(QPainter &painter) {
     else
         painter.setPen(QColor(255, 255, 255));
     // 解释背景方块
-    painter.fillRect(pixX, pixY + winH,
+    painter.fillRect(pixX - transferNumX, pixY + winH - transferNumY,
                      winW, winH * (1 - split) * 2,
                      QColor(0, 0, 0));
     // 色块
-    painter.fillRect(pixX + winW / 20, pixY + winH + winH / 20, winW / 4, winH / 5, color);
+    painter.fillRect(pixX + winW / 20 - transferNumX, pixY + winH + winH / 20 - transferNumY,
+                     winW / 4, winH / 5, color);
     // 准心  外准心
-    painter.drawRect(pixX + winW / 2, pixY + winH / 2,
+    painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
                      10, 14);
-    painter.drawRect(pixX + winW / 2, pixY + winH / 2,
+    painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
                      10, 14);
 
     // 准心 内准心
-    painter.fillRect(pixX + winW / 2, pixY + winH / 2,
+    painter.fillRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
                      10, 14, color);
-    painter.drawRect(pixX, pixY + winH / 2,
+    painter.drawRect(pixX - transferNumX, pixY + winH / 2 - transferNumY,
                      winW, 14);
-    painter.drawRect(pixX + winW / 2, pixY,
+    painter.drawRect(pixX + winW / 2 - transferNumX, pixY - transferNumY,
                      10, winH);
 
     painter.setPen(QColor(255, 255, 255));
     // 解释区域边框
-    painter.drawRect(pixX, pixY + winH,
+    painter.drawRect(pixX - transferNumX, pixY + winH - transferNumY,
                      winW, winH * (1 - split) * 2);
     // 放大区域边框
-    painter.drawRect(pixX, pixY, winW, winH);
+    painter.drawRect(pixX - transferNumX, pixY - transferNumY, winW, winH);
     // 解释语言
     QString theColor;
     if (isRGB) {
         theColor = QString().sprintf("%d, %d, %d", color.red(), color.green(),
                                      color.blue());
-        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 8, "RGB");
-        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20, pixY + winH + winH / 4,
-                         theColor);       //根据透明度算法复原原色素值
+        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20 - transferNumX,
+                         pixY + winH + winH / 8 - transferNumY, "RGB");
+        painter.drawText(pixX + winW / 20 + winW / 4 + winW / 20 - transferNumX,
+                         pixY + winH + winH / 4 - transferNumY, theColor);       //根据透明度算法复原原色素值
     } else {
         theColor = QString("#") + QString::number(color.red(), 16).right(2) +
                    QString::number(color.green(), 16).right(2) +
                    QString::number(color.blue(), 16).right(2);
-        painter.drawText(pixX + winW / 10 + winW / 4 , pixY + winH + winH / 8, "HEX");
-        painter.drawText(pixX + winW / 10 + winW / 4, pixY + winH + winH / 4,
+        painter.drawText(pixX + winW / 10 + winW / 4 - transferNumX,
+                         pixY + winH + winH / 8 - transferNumY, "HEX");
+        painter.drawText(pixX + winW / 10 + winW / 4 - transferNumX,
+                         pixY + winH + winH / 4 - transferNumY,
                          theColor);
     }
     cursorPixColor = theColor;
-    painter.drawText( pixX + winW / 20, pixY + winH + winH /3 + winH/20, "Tap 'X' to change mode ");
-    painter.drawText( pixX + winW / 20, pixY + winH + winH /3 + winH/6, "between RGB/HEX");
-    painter.drawText( pixX + winW / 20, pixY + winH + winH /3 + winH/4 + winH/20 , "Tap 'C' to copy");
+    painter.drawText(pixX + winW / 20 - transferNumX,
+                     pixY + winH + winH / 3 + winH / 20 - transferNumY, "Tap 'S' to change mode ");
+    painter.drawText(pixX + winW / 20 - transferNumX,
+                     pixY + winH + winH / 3 + winH / 6 - transferNumY,
+                     "between RGB/HEX");
+    painter.drawText(pixX + winW / 20 - transferNumX,
+                     pixY + winH + winH / 3 + winH / 4 + winH / 20 - transferNumY,
+                     "Tap 'C' to copy");
 }

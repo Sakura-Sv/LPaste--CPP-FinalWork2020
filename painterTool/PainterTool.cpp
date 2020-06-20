@@ -4,6 +4,7 @@
 
 #include "PainterTool.h"
 #include "ui_PainterTool.h"
+#include <iostream>
 
 PainterTool::PainterTool(QWidget * parent):
     QWidget(parent),
@@ -18,4 +19,20 @@ PainterTool::PainterTool(QWidget * parent):
 
 void PainterTool::saveScreen() {
     emit saveSgn();
+}
+
+void PainterTool::printOnScreen() {
+    QMessageBox::warning(this, "In development!", "////////////////////////////", QMessageBox::Ok);
+}
+
+void PainterTool::unknown(){
+    QMessageBox::warning(this, "In development!", "////////////////////////////", QMessageBox::Ok);
+}
+
+void PainterTool::rollback(){
+    QMessageBox::warning(this, "In development!", "////////////////////////////", QMessageBox::Ok);
+}
+
+void PainterTool::goahead(){
+    QMessageBox::warning(this, "In development!", "////////////////////////////", QMessageBox::Ok);
 }

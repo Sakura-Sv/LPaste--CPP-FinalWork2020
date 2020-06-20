@@ -100,8 +100,76 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PainterTool</receiver>
+   <slot>printOnScreen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>16</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>29</x>
+     <y>90</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>PainterTool</receiver>
+   <slot>unknown()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>53</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>PainterTool</receiver>
+   <slot>rollback()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>142</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>121</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>PainterTool</receiver>
+   <slot>goahead()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>177</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>170</x>
+     <y>173</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveScreen()</slot>
+  <slot>printOnScreen()</slot>
+  <slot>unknown()</slot>
+  <slot>rollback()</slot>
+  <slot>goahead()</slot>
  </slots>
 </ui>
