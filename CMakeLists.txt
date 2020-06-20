@@ -9,18 +9,19 @@
  set(CMAKE_AUTOUIC ON)
  set(CMAKE_AUTORCC ON)
 
-
  find_package(Qt5 COMPONENTS Widgets REQUIRED)
  find_package(Qt5 COMPONENTS Core REQUIRED)
 
- add_executable(C__Final2020 main.cpp
-         resources/systemTray.qrc resources/AboutMeWin.qrc
-         screen/Screen.cpp screen/Screen.h
-         systemTray/SystemTray.h systemTray/SystemTray.cpp
-         widget/Widget.cpp widget/Widget.h widget/Widget.ui
-         lowLevelKeyBoardHook/LowLevelKeyBoardHook.h lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp
-         pasteLabel/PasteLabel.cpp pasteLabel/PasteLabel.h
-         painterTool/PainterTool.cpp painterTool/PainterTool.h painterTool/PainterTool.ui
-         aboutMe/AboutMeWin.cpp aboutMe/AboutMeWin.h aboutMe/AboutMeWin.ui)
+ add_executable(C__Final2020 WIN32 src/cpp/main.cpp
+         src/resources/systemTray.qrc src/resources/AboutMeWin.qrc
+         src/cpp/screen/Screen.cpp src/cpp/screen/Screen.h
+         src/cpp/systemTray/SystemTray.h src/cpp/systemTray/SystemTray.cpp
+         src/cpp/widget/Widget.cpp src/cpp/widget/Widget.h src/cpp/widget/Widget.ui
+         src/cpp/lowLevelKeyBoardHook/LowLevelKeyBoardHook.h src/cpp/lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp
+         src/cpp/pasteLabel/PasteLabel.cpp src/cpp/pasteLabel/PasteLabel.h
+         src/cpp/painterTool/PainterTool.cpp src/cpp/painterTool/PainterTool.h src/cpp/painterTool/PainterTool.ui
+         src/cpp/aboutMe/AboutMeWin.cpp src/cpp/aboutMe/AboutMeWin.h src/cpp/aboutMe/AboutMeWin.ui)
 
- target_link_libraries(C__Final2020 Qt5::Widgets)
+# target_link_options(C__Final2020 PRIVATE )
+
+ target_link_libraries(C__Final2020 Qt5::Widgets )

@@ -20,6 +20,7 @@ void mySystemTray::systemTrayInit(QWidget *mainWindow)
     systemTrayMenu->addAction("About Me   ", mainWindow, SLOT(onBtnAboutMeClicked()));
     systemTrayMenu->addAction("Quit", mainWindow, SLOT(onBtnCloseClicked()));
     systemTray->setContextMenu(systemTrayMenu);
+    systemTray->setToolTip("LPaste");
     systemTray->show();
     mySystemTrayInitFinished(systemTray);
 }

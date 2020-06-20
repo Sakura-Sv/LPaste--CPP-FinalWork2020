@@ -1,9 +1,9 @@
 #include "Widget.h"
 #include "ui_widget.h"
-#include "screen/Screen.h"
-#include "systemTray/systemTray.h"
-#include "lowLevelKeyBoardHook/LowLevelKeyBoardHook.h"
-#include "pasteLabel/PasteLabel.h"
+#include "src/cpp/screen/Screen.h"
+#include "src/cpp/systemTray/systemTray.h"
+#include "src/cpp/lowLevelKeyBoardHook/LowLevelKeyBoardHook.h"
+#include "src/cpp/pasteLabel/PasteLabel.h"
 #include <functional>
 #include <algorithm>
 
@@ -142,6 +142,7 @@ void Widget::onBtnAboutMeClicked(){
 void Widget::switchSlots(int vkCode) {
     switch(vkCode){
         case VK_F1:{
+            std::cout<<"1";
             onBtnRectScreenClicked();
             return;
         }

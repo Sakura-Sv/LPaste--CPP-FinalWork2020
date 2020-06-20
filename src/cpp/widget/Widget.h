@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets/QtWidgets>
-#include <aboutMe/AboutMeWin.h>
+#include "src/cpp/aboutMe/AboutMeWin.h"
 #include <iostream>
 
 namespace Ui {

@@ -19,8 +19,8 @@
 #include <QRect>
 #include <QFile>
 #include <QTimer>
-#include <widget/Widget.h>
-#include <painterTool/PainterTool.h>
+#include "src/cpp/widget/Widget.h"
+#include "src/cpp/painterTool/PainterTool.h"
 
 enum ResizeType {
     None,
@@ -38,7 +38,6 @@ const QSize winSize(200,150);       //窗口尺寸
 const int grabInterval=50;          //刷新频率
 const int magnificationTimes=10;    //放大倍数
 const double split=0.65;             //分割
-const int sizeOfMouseIcon=20;       //鼠标图标大小
 
 class Screen : public QDialog {
 Q_OBJECT

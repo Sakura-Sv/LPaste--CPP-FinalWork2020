@@ -1,6 +1,6 @@
 #include "Screen.h"
 #include <iostream>
-#include <painterTool/PainterTool.h>
+#include "src/cpp/painterTool/PainterTool.h"
 
 Screen::Screen(QWidget *parent, bool isExternalScreen) :
         QDialog(0) {
@@ -131,6 +131,8 @@ void Screen::mouseReleaseEvent(QMouseEvent *e) //--鼠标释放（松开）事�
     if (resize_ && this->painterTool != nullptr) {
         leftPres = false;
         move_ = false;
+        resize_type_ = None;
+        buttom_press_type = None;
 
         this->painterTool->move(rect_->x() + rect_->width() - this->painterTool->width(),
                                 rect_->y() + rect_->height());
