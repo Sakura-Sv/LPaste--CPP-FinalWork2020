@@ -17,6 +17,7 @@ void mySystemTray::systemTrayInit(QWidget *mainWindow)
     systemTrayMenu->addAction("Open Main Window", mainWindow, SLOT(onBtnShowClicked()));
     systemTrayMenu->addAction("Grab Screen        F1", mainWindow, SLOT(onBtnRectScreenClicked()));
     systemTrayMenu->addAction("Paste ScrrenShot   F3", mainWindow, SLOT(onBtnPasteClicked()));
+    systemTrayMenu->addAction("About Me   ", mainWindow, SLOT(onBtnAboutMeClicked()));
     systemTrayMenu->addAction("Quit", mainWindow, SLOT(onBtnCloseClicked()));
     systemTray->setContextMenu(systemTrayMenu);
     systemTray->show();

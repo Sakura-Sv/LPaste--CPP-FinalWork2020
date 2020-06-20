@@ -558,7 +558,7 @@ void Screen::magnifierGlass(QPainter &painter) {
                      winW / 4, winH / 5, color);
     // 准心  外准心
     painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
-                     10, 14);
+                                              10, 14);
     painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
                      10, 14);
 

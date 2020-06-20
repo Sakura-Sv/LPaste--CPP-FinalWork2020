@@ -135,6 +135,10 @@ void Widget::onBtnPasteClicked() {
     new PasteLabel(this, this->pasteCacheList[offset--]);
 }
 
+void Widget::onBtnAboutMeClicked(){
+    new AboutMeWin(this);
+}
+
 void Widget::switchSlots(int vkCode) {
     switch(vkCode){
         case VK_F1:{

@@ -1,6 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource>
-        <file>static/favicon.ico</file>
+        <file>static/avatar.jpg</file>
     </qresource>
 </RCC>

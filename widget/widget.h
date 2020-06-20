@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets/QtWidgets>
+#include <aboutMe/AboutMeWin.h>
 #include <iostream>
 
 namespace Ui {
@@ -36,6 +37,8 @@ public slots:
     void onBtnCloseClicked();
 
     void onBtnPasteClicked();
+
+    void onBtnAboutMeClicked();
 
     void switchSlots(int vkCode);
 

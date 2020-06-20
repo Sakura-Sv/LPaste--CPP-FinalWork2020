@@ -13,12 +13,14 @@
  find_package(Qt5 COMPONENTS Widgets REQUIRED)
  find_package(Qt5 COMPONENTS Core REQUIRED)
 
- add_executable(C__Final2020 main.cpp resources/systemTray.qrc
+ add_executable(C__Final2020 main.cpp
+         resources/systemTray.qrc resources/AboutMeWin.qrc
          screen/Screen.cpp screen/Screen.h
          systemTray/SystemTray.h systemTray/SystemTray.cpp
          widget/Widget.cpp widget/Widget.h widget/Widget.ui
          lowLevelKeyBoardHook/LowLevelKeyBoardHook.h lowLevelKeyBoardHook/LowLevelKeyBoardHook.cpp
          pasteLabel/PasteLabel.cpp pasteLabel/PasteLabel.h
-         painterTool/PainterTool.cpp painterTool/PainterTool.h painterTool/PainterTool.ui)
+         painterTool/PainterTool.cpp painterTool/PainterTool.h painterTool/PainterTool.ui
+         aboutMe/AboutMeWin.cpp aboutMe/AboutMeWin.h aboutMe/AboutMeWin.ui)
 
  target_link_libraries(C__Final2020 Qt5::Widgets)
