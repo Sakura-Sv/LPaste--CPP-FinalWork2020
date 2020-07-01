@@ -22,6 +22,4 @@
          src/cpp/painterTool/PainterTool.cpp src/cpp/painterTool/PainterTool.h src/cpp/painterTool/PainterTool.ui
          src/cpp/aboutMe/AboutMeWin.cpp src/cpp/aboutMe/AboutMeWin.h src/cpp/aboutMe/AboutMeWin.ui)
 
-# target_link_options(C__Final2020 PRIVATE )
-
  target_link_libraries(C__Final2020 Qt5::Widgets )

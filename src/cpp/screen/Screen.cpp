@@ -1,3 +1,7 @@
+//
+// Created by 刘镇 on 2020/6/3.
+//
+
 #include "Screen.h"
 #include <iostream>
 #include "src/cpp/painterTool/PainterTool.h"
@@ -15,6 +19,7 @@ Screen::Screen(QWidget *parent, bool isExternalScreen) :
     menu->addAction("FullScreen(ALT+A)", this, SLOT(grabFullScreen()));
     menu->addAction("Quit(ESC)", this, SLOT(hide()));
     connect(this, SIGNAL(grabSuccess()), parent, SLOT(initFileList()));
+    this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::Tool);
     this->setStyleSheet("QDialog{background-color: rgba(255, 255, 255, 0);}");
 //    setWindowOpacity(0);
@@ -279,6 +284,7 @@ void Screen::saveScreen() {
     QString fileName =
             SCREEN_CACHE + QString::number(QDateTime::currentMSecsSinceEpoch()) + ".bmp";
     fullScreen.copy(*rect_).save(fileName, "bmp");
+    QApplication::clipboard()->setPixmap(fullScreen.copy(*rect_));
     this->close();
     emit grabSuccess();
 }
@@ -312,9 +318,9 @@ void Screen::keyPressEvent(QKeyEvent *e) {
         hide();
     } else if (e->key() == Qt::Key_C && e->modifiers() == Qt::ControlModifier) {
         QGuiApplication::clipboard()->setPixmap(fullScreen.copy(*rect_));
-    } else if (e->key() == Qt::Key_C && e->modifiers() == Qt::AltModifier) {
+    } else if (e->key() == Qt::Key_S && e->modifiers() == Qt::ControlModifier) {
         saveScreenOther();
-    } else if (e->key() == Qt::Key_A && e->modifiers() == Qt::AltModifier) {
+    }    else if (e->key() == Qt::Key_A && e->modifiers() == Qt::AltModifier) {
         grabFullScreen();
     } else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
         saveScreen();

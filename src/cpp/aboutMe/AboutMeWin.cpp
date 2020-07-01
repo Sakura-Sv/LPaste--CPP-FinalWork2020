@@ -14,6 +14,7 @@ AboutMeWin::AboutMeWin(QWidget *parent) :
     auto *scene = new QGraphicsScene();
     auto *image = new QImage(":/static/avatar.jpg");
     scene->addPixmap(QPixmap::fromImage(*image));
+    setWindowFlag(Qt::FramelessWindowHint, true);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
     this->show();

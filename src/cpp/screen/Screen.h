@@ -61,12 +61,12 @@ private slots:
     void stopTimer();
 protected:
     void contextMenuEvent(QContextMenuEvent *);  //--右键菜单事件
-    void mousePressEvent(QMouseEvent *e);       //--鼠标按下事件
-    void mouseMoveEvent(QMouseEvent *e);       //--鼠标移动事件
-    void mouseReleaseEvent(QMouseEvent *e);   //--鼠标释放（松开）事件
+    void mousePressEvent(QMouseEvent *);       //--鼠标按下事件
+    void mouseMoveEvent(QMouseEvent *);       //--鼠标移动事件
+    void mouseReleaseEvent(QMouseEvent *);   //--鼠标释放（松开）事件
     void paintEvent(QPaintEvent *);          //--画图事件
     void showEvent(QShowEvent *);           //--窗体show事件
-    void keyPressEvent(QKeyEvent *e);      //--按键事件
+    void keyPressEvent(QKeyEvent *);      //--按键事件
     void initParams(bool);
 
     void drawResizeMark(QPainter &);

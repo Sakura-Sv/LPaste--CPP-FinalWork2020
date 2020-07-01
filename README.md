@@ -12,3 +12,6 @@
 ## 注意：目前仅支持Windows！！！
 
 ## 如果对你有帮助，欢迎点个Star. Thanks!
+
+## 可以直接运行LPaste-vx.x.x-embed.exe嗷
+

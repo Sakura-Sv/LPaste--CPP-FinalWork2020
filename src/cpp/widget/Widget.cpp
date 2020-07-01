@@ -1,3 +1,7 @@
+//
+// Created by 刘镇 on 2020/6/2.
+//
+
 #include "Widget.h"
 #include "ui_widget.h"
 #include "src/cpp/screen/Screen.h"
@@ -100,10 +104,8 @@ void Widget::onBtnRectScreenClicked()
         adjustCurrentScreen();
     }
     auto *m = new Screen(this);
-//    while(!beginToGrap) {
     m->fullScreen = QApplication::screens()[(int) this->isExternScreen]->grabWindow(0);
     m->showFullScreen();
-//    }
 }
 
 void Widget::onBtnMinClicked()
@@ -142,7 +144,6 @@ void Widget::onBtnAboutMeClicked(){
 void Widget::switchSlots(int vkCode) {
     switch(vkCode){
         case VK_F1:{
-            std::cout<<"1";
             onBtnRectScreenClicked();
             return;
         }
