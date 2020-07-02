@@ -320,7 +320,7 @@ void Screen::keyPressEvent(QKeyEvent *e) {
         QGuiApplication::clipboard()->setPixmap(fullScreen.copy(*rect_));
     } else if (e->key() == Qt::Key_S && e->modifiers() == Qt::ControlModifier) {
         saveScreenOther();
-    }    else if (e->key() == Qt::Key_A && e->modifiers() == Qt::AltModifier) {
+    } else if (e->key() == Qt::Key_A && e->modifiers() == Qt::AltModifier) {
         grabFullScreen();
     } else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
         saveScreen();
@@ -542,10 +542,14 @@ void Screen::magnifierGlass(QPainter &painter) {
     int pixY = cursorY + 20;
     int winH = (int) winSize.height();
     int winW = (int) winSize.width();
+    painter.setPen(Qt::white);
+    painter.setBrush(Qt::NoBrush);
     QPixmap glassRect = fullScreen.copy(cursorX - winW / magnificationTimes / 2,
                                         cursorY - winH * split / magnificationTimes / 2,
                                         winW / magnificationTimes,
                                         winH * split / magnificationTimes);
+    // 放大区域边框以及内容
+    painter.drawRect(pixX - transferNumX, pixY - transferNumY, winW, winH);
     painter.drawPixmap(pixX - transferNumX, pixY - transferNumY,
                        winW,
                        winH, glassRect);
@@ -553,39 +557,41 @@ void Screen::magnifierGlass(QPainter &painter) {
                                        winH * split / magnificationTimes / 2,
                                        1, 1);//截图1个像素
     QColor color = cursorPix.toImage().pixel(0, 0);
-    if (color.red() > 100 && color.blue() > 100 && color.green() > 100)    //调节方框颜色，使得更容易区分
-        painter.setPen(QColor(0, 0, 0));
-    else
-        painter.setPen(QColor(255, 255, 255));
-    // 解释背景方块
-    painter.fillRect(pixX - transferNumX, pixY + winH - transferNumY,
-                     winW, winH * (1 - split) * 2,
-                     QColor(0, 0, 0));
-    // 色块
-    painter.fillRect(pixX + winW / 20 - transferNumX, pixY + winH + winH / 20 - transferNumY,
-                     winW / 4, winH / 5, color);
-    // 准心  外准心
-    painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
-                                              10, 14);
-    painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
-                     10, 14);
+//    if (color.red() > 100 && color.blue() > 100 && color.green() > 100) {    //调节方框颜色，使得更容易区分
+//        painter.setPen(QColor(0, 0, 0));
+//        painter.setBrush(QColor(0,0,0));
+//    } else {
+//    }
+    // 解释区域边框
+    painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
+    painter.drawRect(pixX - transferNumX, pixY + winH - transferNumY,
+                     winW, winH * (1 - split) * 2);
+//    painter.fillRect(pixX - transferNumX, pixY + winH - transferNumY,
+//                     winW, winH * (1 - split) * 2, QColor(0,0,0,255));
 
-    // 准心 内准心
-    painter.fillRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
-                     10, 14, color);
+    painter.setBrush(QBrush(QColor(0, 47, 167, 100)));
+    // 准心 外准心
     painter.drawRect(pixX - transferNumX, pixY + winH / 2 - transferNumY,
-                     winW, 14);
+                     winW, 10);
     painter.drawRect(pixX + winW / 2 - transferNumX, pixY - transferNumY,
                      10, winH);
 
-    painter.setPen(QColor(255, 255, 255));
-    // 解释区域边框
-    painter.drawRect(pixX - transferNumX, pixY + winH - transferNumY,
-                     winW, winH * (1 - split) * 2);
-    // 放大区域边框
-    painter.drawRect(pixX - transferNumX, pixY - transferNumY, winW, winH);
+    painter.setBrush(color);
+    // 准心  内准心
+    painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
+                     10, 10);
+    painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
+                     10, 10);
+    painter.drawRect(pixX + winW / 2 - transferNumX, pixY + winH / 2 - transferNumY,
+                     10, 10);
+    // 色块
+    painter.drawRect(pixX + winW / 20 - transferNumX, pixY + winH + winH / 20 - transferNumY,
+                     winW / 4, winH / 5);
+
     // 解释语言
     QString theColor;
+    painter.setPen(Qt::white);
+    painter.setBrush(Qt::NoBrush);
     if (isRGB) {
         theColor = QString().sprintf("%d, %d, %d", color.red(), color.green(),
                                      color.blue());

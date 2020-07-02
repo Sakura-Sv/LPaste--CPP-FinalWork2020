@@ -8,10 +8,10 @@
 
 void mySystemTray::systemTrayInit(QWidget *mainWindow)
 {
-    QSystemTrayIcon *systemTray = new QSystemTrayIcon();
+    auto *systemTray = new QSystemTrayIcon();
     systemTray->setIcon(QIcon(":/static/favicon.ico"));
     systemTray->setToolTip("SystemTray Program");
-    QMenu *systemTrayMenu = new QMenu();
+    auto *systemTrayMenu = new QMenu();
     QObject::connect(systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), mainWindow,
             SLOT(onSystemTrayClicked(QSystemTrayIcon::ActivationReason)));
     systemTrayMenu->addAction("Open Main Window", mainWindow, SLOT(onBtnShowClicked()));
